@@ -1,0 +1,27 @@
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Jet Brains Mono', sans-serif;
+}
+
+.image {
+    min-height: 120px;
+}
+
+.title {
+    min-height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+}

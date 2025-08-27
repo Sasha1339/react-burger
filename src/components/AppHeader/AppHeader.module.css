@@ -1,0 +1,22 @@
+.header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr; /* левый блок | центр | правый блок */
+    align-items: center;
+    padding: 16px 0;
+    background-color: var(--background-header);
+
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+}
+
+.logo,.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+

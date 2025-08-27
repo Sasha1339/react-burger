@@ -1,0 +1,11 @@
+.ingredients {
+    display: grid;
+    grid-template-rows: 5% 5% 80%;
+    gap: 5%;
+    height: 100%;
+    font-family: "Jet Brains Mono", sans-serif;
+}
+
+.content {
+    overflow-y: auto;
+}
