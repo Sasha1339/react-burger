@@ -4,6 +4,14 @@
     justify-content: space-between;
     align-items: center;
     font-family: 'Jet Brains Mono', sans-serif;
+    position: relative;
+}
+
+.counter{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
 }
 
 .image {
