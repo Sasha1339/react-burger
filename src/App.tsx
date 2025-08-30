@@ -8,7 +8,7 @@ import {BurgerConstructor} from "./components/BurgerConstructor/BurgerConstructo
 function App() {
   return (
     <div className={styles.main}>
-      <AppHeader></AppHeader>
+      <AppHeader />
       <main>
         <section>
           <BurgerIngredients ingredients={ingredients}/>

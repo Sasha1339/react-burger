@@ -12,7 +12,7 @@ export const BurgerIngredients: FC<Props> = ({ingredients, ...props}) => {
 
   const buns = ingredients.filter((e) => e.type === IngredientsType.BUN)
   const sauces = ingredients.filter((e) => e.type === IngredientsType.SAUCE)
-  const fillings = ingredients.filter((e) => e.type === IngredientsType.FILLING)
+  const fillings = ingredients.filter((e) => e.type === IngredientsType.MAIN)
 
   return (
     <div className={styles.ingredients}>

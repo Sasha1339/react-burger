@@ -7,6 +7,11 @@
     width: 100%;
     box-sizing: border-box;
     padding: 0 10px;
+    height: 80px;
+}
+
+.constructor_ui {
+    max-height: 80px;
 }
 
 .image {

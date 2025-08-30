@@ -10,7 +10,7 @@ type Props = {
 export const IngredientList: FC<Props> = ({items, ...props}) => {
   return (
     <div className={styles.list}>
-      {items.length > 0 ? items.map(e => <IngredientUI key={e.id} ingredient={e} />) : <p className={styles.notification}>Ингредиенты закончились</p>}
+      {items.length > 0 ? items.map(e => <IngredientUI key={e._id} ingredient={e} />) : <p className={styles.notification}>Ингредиенты закончились</p>}
     </div>
   )
 }

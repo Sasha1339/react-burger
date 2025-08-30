@@ -11,9 +11,9 @@ export const IngredientUI: FC<Props> = ({ingredient, ...props}) => {
   return (
     <div className={styles.ingredient}>
       <div className={styles.counter}>
-        <Counter count={ingredient.amount}/>
+        <Counter count={0}/>
       </div>
-      <img className={styles.image} src={ingredient.image} alt='Здесь должна быть картинка'/>
+      <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
       <div className={styles.price}>
         <span>{ingredient.price}</span>
         <CurrencyIcon type='primary'/>

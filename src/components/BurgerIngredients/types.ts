@@ -1,15 +1,14 @@
 export enum IngredientsType {
-  BUN = 'BUN',
-  SAUCE = 'SAUCE',
-  FILLING = 'FILLING',
+  BUN = 'bun',
+  SAUCE = 'sauce',
+  MAIN = 'main',
 }
 
 export type Ingredient = {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   image: string;
-  amount: number;
   type: IngredientsType;
 }
 
@@ -24,6 +23,6 @@ export const navigationTypes = [
   },
   {
     name: 'Начинки',
-    type: IngredientsType.FILLING
+    type: IngredientsType.MAIN
   }
 ]

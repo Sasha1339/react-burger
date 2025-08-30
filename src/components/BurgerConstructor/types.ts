@@ -1,5 +1,5 @@
 export type IngredientCard = {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   image: string;
