@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./IngredientCardUI.module.css";
-import {IngredientCard} from "../../components/BurgerConstructor/types";
+import {IngredientCard} from "../BurgerConstructor/types";
 
 type Props = {
   ingredient: IngredientCard;

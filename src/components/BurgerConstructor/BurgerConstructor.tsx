@@ -1,7 +1,7 @@
 import {FC} from "react";
 import styles from "./BurgerConstructor.module.css"
 import {IngredientCard} from "./types";
-import {IngredientCardUI} from "../../elements/IngredientConstructor/IngredientCardUI";
+import {IngredientCardUI} from "../IngredientConstructor/IngredientCardUI";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type Props = {

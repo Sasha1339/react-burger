@@ -1,7 +1,7 @@
 import styles from "./IngredientList.module.css"
 import {Ingredient} from "../BurgerIngredients/types";
 import {FC} from "react";
-import {IngredientUI} from "../../elements/IngredientUI/IngredientUI";
+import {IngredientUI} from "../IngredientUI/IngredientUI";
 
 type Props = {
   items: Ingredient[]

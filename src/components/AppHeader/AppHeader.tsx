@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IconLink} from "../../elements/IconLink/IconLink";
+import {IconLink} from "../IconLink/IconLink";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./AppHeader.module.css"
 
