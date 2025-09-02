@@ -5,4 +5,4 @@ import {IngredientCard} from "../BurgerConstructor/types";
 
 export const ingredients: Ingredient[] = MockIngredients as Ingredient[];
 
-export const ingredientsCard: IngredientCard[] = MockIngredientsCard as IngredientCard[];
+export const ingredientsCard: Ingredient[] = MockIngredientsCard as Ingredient[];

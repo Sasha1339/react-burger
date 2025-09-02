@@ -13,8 +13,8 @@ export const IngredientNavigation: FC<Props> = ({items, ...props}) => {
 
   return (
     <nav className={styles.navigation}>
-      {items.map(e => (
-        <Tab active={e.type === type} value={e.name} onClick={() => setType(e.type)} >{e.name}</Tab>
+      {items.map((e, index) => (
+        <Tab key={index} active={e.type === type} value={e.name} onClick={() => setType(e.type)} >{e.name}</Tab>
       ))}
     </nav>
   )

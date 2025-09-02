@@ -1,0 +1,22 @@
+.modal {
+  font-family: 'Jet Brains Mono', sans-serif;
+  width: 720px;
+  box-sizing: border-box;
+  padding: 60px 48px;
+  position: absolute;
+  font-size: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  border-radius: 40px;
+  background-color: var(--background-modal);
+}
+
+.header {
+  font-size: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}

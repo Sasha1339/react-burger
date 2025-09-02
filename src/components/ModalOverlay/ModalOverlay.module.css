@@ -1,0 +1,9 @@
+.modal_overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 9000;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,16 @@
+.modal_content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image_modal {
+    min-height: 240px;
+}
+
+.units {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
