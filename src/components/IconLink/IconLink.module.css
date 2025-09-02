@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.5s;
+    border: 2px dashed var(--background-header);
+}
+
+.wrapper:hover {
+    border: 2px dashed var(--border-color-first);
+}
+
+.title {
+    font-family: 'Jet Brains Mono', sans-serif;
+}

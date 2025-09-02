@@ -1,0 +1,8 @@
+:root {
+    --background-header: #1C1C21;
+    --border-color-first: #4C4CFF;
+    --border-disabled: #2F2F37;
+    --border-enabled: #4C4CFF;
+    --color-text-disabled: #8585AD;
+    --color-text-active: #F2F2F3;
+}

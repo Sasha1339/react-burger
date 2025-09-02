@@ -1,0 +1,21 @@
+.navigation {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    font-family: "Jet Brains Mono", sans-serif;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    color: var(--color-text-disabled);
+    border-bottom: 2px solid var(--border-disabled);
+    transition: 0.5s;
+    flex-grow: 1;
+}
+
+.active {
+    color: var(--color-text-active);
+    border-bottom: 2px solid var(--border-enabled);
+}

@@ -1,0 +1,37 @@
+.ingredient {
+    display: grid;
+    grid-template-columns: 20px auto;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Jet Brains Mono', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: 80px;
+}
+
+.constructor_ui {
+    max-height: 80px;
+}
+
+.image {
+    max-width: 40px;
+}
+
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 24px;
+    box-sizing: border-box;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+}
