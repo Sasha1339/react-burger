@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppHeader} from "./components/AppHeader/AppHeader";
 import  styles from './App.module.css';
 import {BurgerIngredients} from "./components/BurgerIngredients/BurgerIngredients";
 import {BurgerConstructor} from "./components/BurgerConstructor/BurgerConstructor";
-import {withIngredients} from "./hocs/withIngredients";
-
-const BurgerConstructorWithIngredients = withIngredients(BurgerConstructor);
-const BurgerIngredientsWithIngredients = withIngredients(BurgerIngredients);
+import {ingredientService} from "./api/ingredient.service";
+import {Ingredient} from "./components/BurgerIngredients/types";
 
 
 function App() {
+
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
+  useEffect(() => {
+    ingredientService.getAllIngredients().then((response) => {
+      setIngredients(response.data);
+    }).catch((error) => {
+      console.log(error.message);
+    })
+  }, [])
+
   return (
     <div className={styles.main}>
       <AppHeader />
       <main>
         <section>
-          <BurgerIngredientsWithIngredients />
+          <BurgerIngredients ingredients={ingredients} />
         </section>
         <section>
-          <BurgerConstructorWithIngredients />
+          <BurgerConstructor ingredients={ingredients} />
         </section>
       </main>
     </div>

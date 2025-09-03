@@ -4,6 +4,5 @@
     position: absolute;
     top: 0;
     z-index: 9000;
-    backdrop-filter: blur(20px);
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.6);
 }

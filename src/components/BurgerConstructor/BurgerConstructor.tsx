@@ -1,18 +1,20 @@
-import {FC, useEffect, useState} from "react";
+import {FC, PropsWithChildren, useEffect, useState} from "react";
 import styles from "./BurgerConstructor.module.css"
 import {IngredientCardUI} from "../IngredientCardUI/IngredientCardUI";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Ingredient, IngredientsType} from "../BurgerIngredients/types";
 import {OrderDetails} from "../OrderDetails/OrderDetails";
 import {OrderModel} from "../OrderDetails/types";
+import {Modal} from "../Modal/Modal";
+import {useModal} from "../../hooks/useModal";
 
 type Props = {
   ingredients: Ingredient[];
 }
 
-export const BurgerConstructor: FC<Props> = ({ingredients, ...props}) => {
+export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({ingredients,...props}) => {
 
-  const [visible, setVisible] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const [ingredientsWithoutBun, setIngredientsWithoutBun] = useState<Ingredient[]>([]);
   const [upBun, setUpBun] = useState<Ingredient | undefined>(undefined);
@@ -45,7 +47,11 @@ export const BurgerConstructor: FC<Props> = ({ingredients, ...props}) => {
   }, [ingredients]);
 
   const order = {id: 456372} as OrderModel
-  const modal = OrderDetails({order, setVisible})
+  const modal = (
+    <Modal onClose={closeModal}>
+      <OrderDetails order={order} />
+    </Modal>
+  )
 
   return (
     <div className={styles.ingredients}>
@@ -64,11 +70,11 @@ export const BurgerConstructor: FC<Props> = ({ingredients, ...props}) => {
           <span>650</span>
           <CurrencyIcon type='primary'/>
         </div>
-        <Button htmlType='button' onClick={() => setVisible(true)}>
+        <Button htmlType='button' onClick={openModal}>
           Оформить заказ
         </Button>
       </div>
-      {visible && modal}
+      {isModalOpen && modal}
     </div>
   )
 }
