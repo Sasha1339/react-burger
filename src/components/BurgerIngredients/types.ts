@@ -1,14 +1,16 @@
+import {IngredientCard} from "../BurgerConstructor/types";
+
 export enum IngredientsType {
   BUN = 'bun',
   SAUCE = 'sauce',
   MAIN = 'main',
 }
 
-export type Ingredient = {
-  _id: string;
-  name: string;
-  price: number;
-  image: string;
+export interface Ingredient extends IngredientCard {
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  calories: number;
   type: IngredientsType;
 }
 

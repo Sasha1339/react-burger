@@ -1,0 +1,8 @@
+.info {
+    font-family: 'Jet Brains Mono', sans-serif;
+    color: var(--color-text-unit);
+}
+
+p {
+    text-align: center;
+}

@@ -1,4 +1,4 @@
-export type IngredientCard = {
+export interface IngredientCard {
   _id: string;
   name: string;
   price: number;

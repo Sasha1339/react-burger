@@ -1,25 +1,68 @@
-import {FC} from "react";
+import {FC, PropsWithChildren, useEffect, useState} from "react";
 import styles from "./BurgerConstructor.module.css"
-import {IngredientCard} from "./types";
-import {IngredientCardUI} from "../IngredientConstructor/IngredientCardUI";
+import {IngredientCardUI} from "../IngredientCardUI/IngredientCardUI";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Ingredient, IngredientsType} from "../BurgerIngredients/types";
+import {OrderDetails} from "../OrderDetails/OrderDetails";
+import {OrderModel} from "../OrderDetails/types";
+import {Modal} from "../Modal/Modal";
+import {useModal} from "../../hooks/useModal";
 
 type Props = {
-  ingredients: IngredientCard[];
+  ingredients: Ingredient[];
 }
 
-export const BurgerConstructor: FC<Props> = ({ingredients, ...props}) => {
+export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({ingredients,...props}) => {
+
+  const { isModalOpen, openModal, closeModal } = useModal();
+
+  const [ingredientsWithoutBun, setIngredientsWithoutBun] = useState<Ingredient[]>([]);
+  const [upBun, setUpBun] = useState<Ingredient | undefined>(undefined);
+  const [downBun, setDownBun] = useState<Ingredient | undefined>(undefined);
+
+  useEffect(() => {
+    let updatedUpBun: Ingredient | undefined;
+    let updatedDownBun: Ingredient | undefined;
+    const updatedIngredients: Ingredient[] = []
+
+    ingredients.forEach((e) => {
+      if (e.type === IngredientsType.BUN && !updatedUpBun) {
+        updatedUpBun = e;
+        return;
+      }
+
+      if (e.type === IngredientsType.BUN && !updatedDownBun) {
+        updatedDownBun = e;
+        return;
+      }
+
+      if (e.type !== IngredientsType.BUN) {
+        updatedIngredients.push(e);
+      }
+    });
+
+    setUpBun(updatedUpBun);
+    setDownBun(updatedDownBun);
+    setIngredientsWithoutBun(updatedIngredients);
+  }, [ingredients]);
+
+  const order = {id: 456372} as OrderModel
+  const modal = (
+    <Modal onClose={closeModal}>
+      <OrderDetails order={order} />
+    </Modal>
+  )
 
   return (
     <div className={styles.ingredients}>
       <div className={styles.components}>
-        <IngredientCardUI ingredient={ingredients[0]} isLocked={true} type={'top'}/>
+        {upBun && <IngredientCardUI ingredient={upBun} isLocked={true} type={'top'}/>}
         <div className={styles.content}>
-          {ingredients.length > 2 && (ingredients.length > 3 ? ingredients.slice(1, ingredients.length - 2) : [ingredients[1]]).map((e, index) => (
+          {ingredientsWithoutBun.map((e, index) => (
             <IngredientCardUI key={index} ingredient={e}/>
           ))}
         </div>
-        <IngredientCardUI ingredient={ingredients[ingredients.length - 1]} isLocked={true} type={'bottom'}/>
+        {downBun && <IngredientCardUI ingredient={downBun} isLocked={true} type={'bottom'}/>}
       </div>
 
       <div className={styles.footer}>
@@ -27,10 +70,11 @@ export const BurgerConstructor: FC<Props> = ({ingredients, ...props}) => {
           <span>650</span>
           <CurrencyIcon type='primary'/>
         </div>
-        <Button htmlType='button'>
+        <Button htmlType='button' onClick={openModal}>
           Оформить заказ
         </Button>
       </div>
+      {isModalOpen && modal}
     </div>
   )
 }

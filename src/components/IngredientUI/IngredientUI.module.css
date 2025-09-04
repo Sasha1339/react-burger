@@ -5,6 +5,8 @@
     align-items: center;
     font-family: 'Jet Brains Mono', sans-serif;
     position: relative;
+    overflow: hidden;
+    gap: 5px;
 }
 
 .counter{
@@ -23,6 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: start;
+    text-align: center;
 }
 
 .price {
