@@ -3,7 +3,7 @@ import {HttpError} from "../shared/api/HttpError";
 import {Ingredient} from "../components/BurgerIngredients/types";
 import {ResponseData} from "../shared/types";
 
-class IngredientService {
+class IngredientApi {
 
   readonly API_URL: string;
 
@@ -27,4 +27,4 @@ class IngredientService {
     };
 }
 
-export const ingredientService = new IngredientService();
+export const ingredientApi = new IngredientApi();

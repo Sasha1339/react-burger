@@ -14,6 +14,10 @@ export interface Ingredient extends IngredientCard {
   type: IngredientsType;
 }
 
+export interface ConstructorIngredient extends Ingredient {
+  order?: number
+}
+
 export const navigationTypes = [
   {
     name: 'Булки',

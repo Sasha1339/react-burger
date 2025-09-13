@@ -3,7 +3,7 @@ import {AppHeader} from "./components/AppHeader/AppHeader";
 import  styles from './App.module.css';
 import {BurgerIngredients} from "./components/BurgerIngredients/BurgerIngredients";
 import {BurgerConstructor} from "./components/BurgerConstructor/BurgerConstructor";
-import {ingredientService} from "./api/ingredient.service";
+import {ingredientApi} from "./api/ingredient";
 import {Ingredient} from "./components/BurgerIngredients/types";
 
 
@@ -12,7 +12,7 @@ function App() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   useEffect(() => {
-    ingredientService.getAllIngredients().then((response) => {
+    ingredientApi.getAllIngredients().then((response) => {
       setIngredients(response.data);
     }).catch((error) => {
       console.log(error.message);
