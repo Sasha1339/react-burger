@@ -5,12 +5,23 @@ import styles from "./IngredientUI.module.css";
 import {Modal} from "../Modal/Modal";
 import {IngredientsDetails} from "../IngredientsDetails/IngredientsDetails";
 import {useModal} from "../../hooks/useModal";
+import {useDrag} from "react-dnd";
+import {useSelector} from "react-redux";
+import {ingredientsSelectors} from "../../services/ingredients";
 
 type Props = {
   ingredient: Ingredient
 }
 
 export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
+
+  const [{isDrag}, dragRef] = useDrag({
+    type: 'ingredient',
+    item: ingredient,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  })
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -22,7 +33,7 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
 
   return (
     <>
-      <div className={styles.ingredient} onClick={openModal}>
+      {!isDrag && <div ref={dragRef} className={styles.ingredient} onClick={openModal}>
         <div className={styles.counter}>
           <Counter count={0}/>
         </div>
@@ -32,7 +43,7 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
           <CurrencyIcon type='primary'/>
         </div>
         <div className={styles.title}>{ingredient.name}</div>
-    </div>
+    </div>}
       {isModalOpen && modal}
     </>
   )

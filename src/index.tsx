@@ -3,13 +3,31 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {combineReducers} from "redux";
+import {ingredientsReducer} from "./services/ingredients";
+import {configureStore} from "@reduxjs/toolkit";
+import {Provider} from "react-redux";
+
+export const reducer = combineReducers({
+  ingredients: ingredientsReducer,
+});
+
+export const store = configureStore({
+  reducer,
+});
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

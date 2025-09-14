@@ -1,15 +1,63 @@
-import {FC, useCallback} from "react";
+import {FC, useCallback, useRef, useState} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./IngredientCardUI.module.css";
 import {IngredientCard} from "../BurgerConstructor/types";
+import {useDrop, XYCoord} from "react-dnd";
+import {ConstructorIngredient, Ingredient, IngredientsType} from "../BurgerIngredients/types";
+import {ingredientsActions} from "../../services/ingredients";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 type Props = {
-  ingredient: IngredientCard;
+  ingredient: ConstructorIngredient;
   isLocked?: boolean;
   type?: 'top' | 'bottom'
 }
 
 export const IngredientCardUI: FC<Props> = ({ingredient, isLocked, type, ...props}) => {
+
+  const dispatch = useAppDispatch();
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [hoverPosition, setHoverPosition] = useState<"up" | "down" | null>(null)
+
+  const [{ isOver }, otherDrop] = useDrop({
+    accept: 'ingredient',
+    drop(item: Ingredient, monitor) {
+      if (!ref.current) return
+
+      const hoverBoundingRect = ref.current.getBoundingClientRect()
+      const clientOffset = monitor.getClientOffset()
+
+      if (!clientOffset) return
+
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+
+      console.log(hoverClientY < hoverMiddleY);
+
+      if (hoverClientY < hoverMiddleY) {
+        dispatch(ingredientsActions.addIngredientInConstruct({ ...item, order: ingredient.order }))
+      } else {
+        dispatch(ingredientsActions.addIngredientInConstruct({ ...item, order: ingredient.order! + 1 }))
+      }
+    },
+    hover(item, monitor) {
+      if (!ref.current) return
+      const rect = ref.current.getBoundingClientRect()
+      const clientOffset = monitor.getClientOffset()
+      if (!clientOffset) return
+
+      const middleY = (rect.bottom - rect.top) / 2
+      const hoverY = clientOffset.y - rect.top
+
+      setHoverPosition(hoverY < middleY ? "up" : "down")
+    },
+    collect: (monitor) => ({
+        isOver: monitor.isOver() && monitor.getItem().type !== IngredientsType.BUN
+    }),
+  })
 
   const getName = useCallback(() => {
     switch (type) {
@@ -22,10 +70,18 @@ export const IngredientCardUI: FC<Props> = ({ingredient, isLocked, type, ...prop
     }
   }, [ingredient.name, type])
 
+  otherDrop(ref);
+
   return (
-    <div className={styles.ingredient}>
-      { isLocked ? <div></div> : <DragIcon type="primary" />}
-      <ConstructorElement extraClass={styles.constructor_ui} text={getName()} thumbnail={ingredient.image} price={ingredient.price} isLocked={isLocked} type={type}  />
+    <div ref={ingredient.type !== IngredientsType.BUN ? ref : null} >
+      {isOver && <div className={`${styles.new_ingredient_drop} ${hoverPosition === 'up' && styles.new_ingredient_drop_active}`}>Сделать выше ингредиента {ingredient.name}</div>}
+      <div className={styles.ingredient}>
+        <>
+        { isLocked ? <div></div> : <DragIcon type="primary" />}
+        <ConstructorElement extraClass={styles.constructor_ui} text={getName()} thumbnail={ingredient.image} price={ingredient.price} isLocked={isLocked} type={type}  />
+        </>
+      </div>
+      {isOver && <div className={`${styles.new_ingredient_drop} ${hoverPosition === 'down' && styles.new_ingredient_drop_active}`}>Сделать ниже ингредиента {ingredient.name}</div>}
     </div>
   )
 }
