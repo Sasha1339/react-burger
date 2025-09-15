@@ -1,9 +1,10 @@
 import {ConstructorIngredient, Ingredient} from "../components/BurgerIngredients/types";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from 'uuid';
 import {ingredientApi} from "../api/ingredient";
 
 type IngredientsState = {
-  allIngredients: Ingredient[];
+  allIngredients: ConstructorIngredient[];
   constructorIngredients: {
     upBun?: ConstructorIngredient;
     downBun?: ConstructorIngredient;
@@ -64,21 +65,43 @@ const ingredientsSlice = createSlice({
           return e;
         });
     },
+    moveIngredientConstruct: (state, action: { payload: ConstructorIngredient }) => {
+      const order = action.payload.order!;
+
+      const current: ConstructorIngredient[] = [];
+      [...state.constructorIngredients.other].forEach((e) => {
+        if (e.ingredientId !== action.payload.ingredientId) {
+          current.push({ ...e, order: e.order! >= order ? e.order! + 1 : e.order!})
+        } else {
+          current.push({...e, order: order, moveDrag: false});
+        }
+      });
+
+      state.constructorIngredients.other = [...current.sort((a, b) => a.order! - b.order!)];
+    },
     addIngredientInConstruct: (state, action: { payload: ConstructorIngredient }) => {
       const order = action.payload.order;
+      const allIngredients = [...state.allIngredients];
+
+      allIngredients.filter((e) => e._id === action.payload._id).forEach((ingredient) => {
+        ingredient.amount = ingredient.amount ? ingredient.amount + 1 : 1;
+      });
+
+      state.allIngredients = [...allIngredients];
+
       if (order !== undefined) {
-        const current = [];
+        const current: ConstructorIngredient[] = [];
         [...state.constructorIngredients.other].forEach((e) => {
-          current.push({ ...e, order: e.order! >= order ? e.order! + 1 : e.order! })
+          current.push({ ...e, order: e.order! >= order ? e.order! + 1 : e.order!})
         });
 
-        current.push(action.payload)
+        current.push({...action.payload, ingredientId: action.payload.ingredientId ?? uuidv4()})
 
         state.constructorIngredients.other = [...current.sort((a, b) => a.order! - b.order!)];
       } else {
         const current = [...state.constructorIngredients.other];
 
-        const newIngredient = { ...action.payload, order: current.length }
+        const newIngredient = { ...action.payload, order: current.length, ingredientId: uuidv4() }
 
         current.push(newIngredient)
 

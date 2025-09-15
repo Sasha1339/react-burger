@@ -75,7 +75,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
         </div>
         <div className={styles.content} >
           {ingredientsWithoutBun.length > 0 ? ingredientsWithoutBun.map((e, index) => (
-            <IngredientCardUI key={index} ingredient={e}/>
+            <IngredientCardUI key={e.ingredientId} ingredient={e}/>
           )) :
             <div  ref={otherDrop} className={`${styles.ingredient} ${isOtherHover && styles.ingredient_hover} ${isNotOtherHover && styles.ingredient_hover_invalid}`}>
               Выберите ингредиенты для вашей булочки

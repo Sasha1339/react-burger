@@ -1,10 +1,10 @@
 import styles from "./IngredientList.module.css"
-import {Ingredient} from "../BurgerIngredients/types";
+import {ConstructorIngredient} from "../BurgerIngredients/types";
 import {forwardRef} from "react";
 import {IngredientUI} from "../IngredientUI/IngredientUI";
 
 type Props = {
-  items: Ingredient[];
+  items: ConstructorIngredient[];
 }
 
 export const IngredientList = forwardRef<HTMLDivElement, Props>(({items,...props}, ref) => {

@@ -1,16 +1,14 @@
 import {FC} from "react";
-import {Ingredient} from "../BurgerIngredients/types";
+import {ConstructorIngredient} from "../BurgerIngredients/types";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./IngredientUI.module.css";
 import {Modal} from "../Modal/Modal";
 import {IngredientsDetails} from "../IngredientsDetails/IngredientsDetails";
 import {useModal} from "../../hooks/useModal";
 import {useDrag} from "react-dnd";
-import {useSelector} from "react-redux";
-import {ingredientsSelectors} from "../../services/ingredients";
 
 type Props = {
-  ingredient: Ingredient
+  ingredient: ConstructorIngredient
 }
 
 export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
@@ -21,7 +19,7 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
     collect: monitor => ({
       isDrag: monitor.isDragging()
     })
-  })
+  });
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -35,7 +33,7 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
     <>
       {!isDrag && <div ref={dragRef} className={styles.ingredient} onClick={openModal}>
         <div className={styles.counter}>
-          <Counter count={0}/>
+          {ingredient.amount && <Counter count={ingredient.amount}/>}
         </div>
         <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
         <div className={styles.price}>

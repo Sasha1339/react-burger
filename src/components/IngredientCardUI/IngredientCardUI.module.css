@@ -10,6 +10,14 @@
     height: 80px;
 }
 
+.cursor_move {
+    cursor: move;
+}
+
+.not_user_select {
+    user-select: none;
+}
+
 .new_ingredient_drop {
     display: flex;
     align-items: center;
@@ -34,6 +42,7 @@
 
 .constructor_ui {
     max-height: 80px;
+
 }
 
 .image {
