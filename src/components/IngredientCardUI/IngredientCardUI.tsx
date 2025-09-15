@@ -87,13 +87,12 @@ export const IngredientCardUI: FC<Props> = ({ingredient, isLocked, type, ...prop
 
   const onDelete = useCallback(() => {
     dispatch(ingredientsActions.deleteIngredientConstruct(ingredient))
-  }, []);
+  }, [ingredient, dispatch]);
 
   dragRef(otherDrop(ref));
 
   return (
-    <>
-    {!isDrag && <div ref={ingredient.type !== IngredientsType.BUN ? ref : null} className={styles.not_user_select}>
+    <div ref={ingredient.type !== IngredientsType.BUN ? ref : null} className={`${styles.not_user_select} ${isDrag && styles.item_is_drag}`}>
       {isOver && <div className={`${styles.new_ingredient_drop} ${hoverPosition === 'up' && styles.new_ingredient_drop_active}`}>Сделать выше ингредиента {ingredient.name}</div>}
       <div className={styles.ingredient}>
         <>
@@ -102,7 +101,6 @@ export const IngredientCardUI: FC<Props> = ({ingredient, isLocked, type, ...prop
         </>
       </div>
       {isOver && <div className={`${styles.new_ingredient_drop} ${hoverPosition === 'down' && styles.new_ingredient_drop_active}`}>Сделать ниже ингредиента {ingredient.name}</div>}
-    </div>}
-    </>
+    </div>
   )
 }

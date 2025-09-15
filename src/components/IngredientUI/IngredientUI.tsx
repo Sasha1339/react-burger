@@ -33,7 +33,7 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
     <>
       {!isDrag && <div ref={dragRef} className={styles.ingredient} onClick={openModal}>
         <div className={styles.counter}>
-          {ingredient.amount && <Counter count={ingredient.amount}/>}
+          {!!ingredient.amount && <Counter count={ingredient.amount!}/>}
         </div>
         <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
         <div className={styles.price}>

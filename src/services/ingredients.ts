@@ -57,13 +57,23 @@ const ingredientsSlice = createSlice({
       state.constructorIngredients.downBun = action.payload;
     },
     deleteIngredientConstruct: (state, action: { payload: ConstructorIngredient }) => {
-      const order = action.payload.order!;
+      const ingredientId = action.payload.ingredientId!;
+      const orderItem = action.payload.order!;
+
       state.constructorIngredients.other = [...state.constructorIngredients.other]
-        .filter(e => e.order !== order)
+        .filter(e => e.ingredientId !== ingredientId)
         .map((e) => {
-          e.order = e.order! > order ? e.order! - 1 : e.order;
-          return e;
+          const order = e.order! > orderItem ? e.order! - 1 : e.order;
+          return {...e, order};
         });
+
+      const allIngredients = [...state.allIngredients];
+
+      allIngredients.filter((e) => e._id === action.payload._id).forEach((ingredient) => {
+        ingredient.amount = ingredient.amount! - 1;
+      });
+
+      state.allIngredients = [...allIngredients];
     },
     moveIngredientConstruct: (state, action: { payload: ConstructorIngredient }) => {
       const order = action.payload.order!;
