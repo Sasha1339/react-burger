@@ -6,12 +6,16 @@ import {Modal} from "../Modal/Modal";
 import {IngredientsDetails} from "../IngredientsDetails/IngredientsDetails";
 import {useModal} from "../../hooks/useModal";
 import {useDrag} from "react-dnd";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {ingredientsActions} from "../../services/ingredients";
 
 type Props = {
   ingredient: ConstructorIngredient
 }
 
 export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
+
+  const dispatch = useAppDispatch();
 
   const [{isDrag}, dragRef] = useDrag({
     type: 'ingredient',
@@ -23,15 +27,25 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
+  const onClick = () => {
+    dispatch(ingredientsActions.openIngredientsDetails(ingredient));
+    openModal();
+  }
+
+  const onClose = () => {
+    dispatch(ingredientsActions.closeIngredientsDetails());
+    closeModal();
+  }
+
   const modal = (
-    <Modal header="Детали ингредиента" onClose={closeModal}>
-      <IngredientsDetails ingredient={ingredient} />
+    <Modal header="Детали ингредиента" onClose={onClose}>
+      <IngredientsDetails />
     </Modal>
   )
 
   return (
     <>
-      {!isDrag && <div ref={dragRef} className={styles.ingredient} onClick={openModal}>
+      {!isDrag && <div ref={dragRef} className={styles.ingredient} onClick={onClick}>
         <div className={styles.counter}>
           {!!ingredient.amount && <Counter count={ingredient.amount!}/>}
         </div>

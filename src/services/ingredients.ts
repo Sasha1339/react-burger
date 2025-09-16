@@ -50,6 +50,12 @@ const ingredientsSlice = createSlice({
     isFailed: (state) => state.ingredientsFailed
   },
   reducers: {
+    openIngredientsDetails: (state, action: { payload: Ingredient }) => {
+      state.currentIngredient = action.payload;
+    },
+    closeIngredientsDetails: (state) => {
+      state.currentIngredient = null;
+    },
     addUpBunConstruct: (state, action: { payload: ConstructorIngredient }) => {
       state.constructorIngredients.upBun = action.payload;
     },

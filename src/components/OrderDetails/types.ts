@@ -1,3 +1,7 @@
 export interface OrderModel {
-  id: number;
+  name: string;
+  order: {
+    number: number;
+  }
+  success: boolean;
 }

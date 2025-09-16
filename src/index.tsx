@@ -7,9 +7,11 @@ import {combineReducers} from "redux";
 import {ingredientsReducer} from "./services/ingredients";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
+import {orderReducer} from "./services/order";
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
+  order: orderReducer
 });
 
 export const store = configureStore({
