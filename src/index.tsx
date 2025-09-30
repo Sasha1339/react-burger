@@ -8,6 +8,10 @@ import {ingredientsReducer} from "./services/ingredients";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import {orderReducer} from "./services/order";
+import {routes} from "./app/routes";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+
+const router = createBrowserRouter(routes);
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -28,7 +32,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );

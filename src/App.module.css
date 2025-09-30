@@ -6,15 +6,3 @@
     box-sizing: border-box;
     padding: 30px;
 }
-
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10%;
-}
-
-section {
-    width: 35%;
-    height: 100%;
-}
