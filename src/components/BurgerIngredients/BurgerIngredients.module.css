@@ -11,8 +11,14 @@
 
 .content {
     overflow-y: auto;
+    scrollbar-width: none;
 }
 
 h1 {
     margin: 0;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 50px;
 }

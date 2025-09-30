@@ -7,6 +7,36 @@
     box-sizing: border-box;
 }
 
+.ingredient {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Jet Brains Mono', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: 80px;
+    color: var(--border-color-first);
+    border: 2px dashed var(--border-color-first);
+    justify-content: center;
+    border-radius: 40px;
+    transition: 0.5s;
+}
+
+.ingredient_hover {
+    color: var(--color-text-active);
+    border: 2px dashed var(--color-text-active);
+}
+
+.ingredient_hover_invalid {
+    color: var(--color-invalid);
+    border: 2px dashed var(--color-invalid);
+}
+
+.drop_not_allowed {
+    cursor: not-allowed;
+}
+
 .components {
     display: flex;
     flex-direction: column;

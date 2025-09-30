@@ -12,6 +12,13 @@ export interface Ingredient extends IngredientCard {
   carbohydrates: number;
   calories: number;
   type: IngredientsType;
+  amount?: number;
+}
+
+export interface ConstructorIngredient extends Ingredient {
+  order?: number
+  ingredientId?: string;
+  moveDrag?: boolean;
 }
 
 export const navigationTypes = [

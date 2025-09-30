@@ -1,24 +1,29 @@
 import styles from './IngredientsDetails.module.css';
 import {FC} from "react";
 import {UnitInfo} from "../UnitInfo/UnitInfo";
-import {Ingredient} from "../BurgerIngredients/types";
+import {useSelector} from "react-redux";
+import {ingredientsSelectors} from "../../services/ingredients";
 
-type Props = {
-  ingredient: Ingredient;
-}
+type Props = {}
 
-export const IngredientsDetails: FC<Props> = ({ingredient, ...props }) => {
+export const IngredientsDetails: FC<Props> = ({...props}) => {
+
+  const ingredient = useSelector(ingredientsSelectors.currentIngredient);
 
   return (
     <div className={styles.modal_content}>
-      <img className={styles.image_modal} src={ingredient.image} alt={ingredient.name}/>
-      <div className={styles.title}>{ingredient.name}</div>
-      <div className={styles.units}>
-        <UnitInfo title='Калории, ккал' amount={ingredient.calories}/>
-        <UnitInfo title='Белки, г' amount={ingredient.proteins}/>
-        <UnitInfo title='Жиры, г' amount={ingredient.fat}/>
-        <UnitInfo title='Углеводы, г' amount={ingredient.carbohydrates}/>
-      </div>
+      {ingredient &&
+        <>
+          <img className={styles.image_modal} src={ingredient.image} alt={ingredient.name}/>
+          <div className={styles.title}>{ingredient.name}</div>
+          <div className={styles.units}>
+            <UnitInfo title='Калории, ккал' amount={ingredient.calories}/>
+            <UnitInfo title='Белки, г' amount={ingredient.proteins}/>
+            <UnitInfo title='Жиры, г' amount={ingredient.fat}/>
+            <UnitInfo title='Углеводы, г' amount={ingredient.carbohydrates}/>
+          </div>
+        </>
+      }
     </div>
   )
 
