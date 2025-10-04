@@ -1,21 +1,19 @@
 import {FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
-import styles from "./LoginPage.module.css";
+import styles from "./ForgotPasswordPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 
 type Props = {}
 
-export const LoginPage: FC<Props> = ({...props}) => {
+export const ForgotPasswordPage: FC<Props> = ({...props}) => {
 
   const [email, setEmail] = useState<string>('');
-  const [showIcon, setShowIcon] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>('');
 
   const [errorEmail, setErrorEmail] = useState<string | undefined>()
 
   const onSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }, [])
+  }, [email])
 
   const onInvalidEmail = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -24,27 +22,20 @@ export const LoginPage: FC<Props> = ({...props}) => {
 
   return (
     <main className={styles.login}>
-
       <form className={styles.login_form} onSubmit={onSubmit}>
-        <h3>Вход</h3>
+        <h3>Восстановление пароля</h3>
         <Input type='email' placeholder={'E-mail'} error={!!errorEmail} errorText={errorEmail}
                onInvalid={onInvalidEmail} onInput={() => setErrorEmail(undefined)} value={email}
                onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={() => {
         }} onPointerLeaveCapture={() => {
         }}/>
-        <Input type={showIcon ? 'text' : 'password'} icon={showIcon ? 'ShowIcon' : 'HideIcon'}
-               onIconClick={() => setShowIcon(!showIcon)} placeholder={'Пароль'} value={password}
-               onChange={(e) => setPassword(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
         <Button htmlType='submit'>
-          Войти
+          Восстановить
         </Button>
       </form>
 
       <div className={styles.login_form}>
-        <p className={styles.bottom_text}>Вы - новый пользователь? <Link to="/register">Зарегестрироваться</Link></p>
-        <p className={styles.bottom_text}>Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link></p>
+        <p className={styles.bottom_text}>Вспомнили пароль? <Link to="/login">Войти</Link></p>
       </div>
     </main>
   )
