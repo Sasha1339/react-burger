@@ -8,7 +8,6 @@ import {ConstructorPage} from "../pages/ConstructorPage/ConstructorPage";
 import {ForgotPasswordPage} from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import {ResetPasswordPage} from "../pages/ResetPasswordPage/ResetPasswordPage";
 import {IngredientsDetails} from "../components/IngredientsDetails/IngredientsDetails";
-import {Modal} from "../components/Modal/Modal";
 
 export const routes = [
   {

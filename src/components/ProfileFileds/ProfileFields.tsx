@@ -1,7 +1,7 @@
 import {FC, FormEvent, SyntheticEvent,KeyboardEvent, useCallback, useEffect, useRef, useState} from "react";
 import styles from "./ProfileFields.module.css";
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useNavigate} from "react-router-dom";
+import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useSelector} from "react-redux";
 import {authSelectors} from "../../services/auth";

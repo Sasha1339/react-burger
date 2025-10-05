@@ -144,8 +144,7 @@ const authSlice = createSlice({
       .addCase(token.fulfilled, (state, action) => {
         state.authTokenRequests = false;
         state.authTokenFailed = false;
-        state.state = null;
-        state.user = null;
+        state.state = { ...action.payload, user: { email: '', name: '' } };
       })
       .addCase(token.rejected, (state, action) => {
         state.authTokenRequests = false;
