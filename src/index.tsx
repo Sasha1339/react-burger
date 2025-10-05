@@ -7,10 +7,10 @@ import {ingredientsReducer} from "./services/ingredients";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import {orderReducer} from "./services/order";
-import {routes} from "./app/routes";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import {authReducer} from "./services/auth";
-const router = createBrowserRouter(routes);
+import App from "./App";
+import {authMiddlewareRemoveToken, authMiddlewareSetToken} from "./services/middlewares";
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -20,6 +20,8 @@ export const reducer = combineReducers({
 
 export const store = configureStore({
   reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authMiddlewareSetToken).concat(authMiddlewareRemoveToken),
 });
 
 export type AppDispatch = typeof store.dispatch;
@@ -32,7 +34,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>
 );

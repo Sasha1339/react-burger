@@ -62,22 +62,16 @@ export const ProfileFields: FC<Props> = ({...props}) => {
       <form ref={formRef} className={styles.login_form} onSubmit={onSubmit}>
         <Input type='text' placeholder={'Имя'} icon={'EditIcon'} value={name} onIconClick={() => setShowName(!showName)}
                disabled={!showName}
-               onChange={(e) => setName(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
+               onChange={(e) => setName(e.currentTarget.value)} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>
         <Input type='email' placeholder={'Логин'} error={!!errorEmail} errorText={errorEmail} icon={'EditIcon'}
                onInvalid={onInvalidEmail} onInput={() => setErrorEmail(undefined)} value={email}
                disabled={!showEmail}
                onIconClick={() => setShowEmail(!showEmail)}
-               onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
+               onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>
         <Input type='password' placeholder={'Пароль'} icon={'EditIcon'} value={password}
                disabled={!showPassword}
                onIconClick={() => setShowPassword(!showPassword)}
-               onChange={(e) => setPassword(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
+               onChange={(e) => setPassword(e.currentTarget.value)} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>
       </form>
     </aside>
   )

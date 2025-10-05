@@ -16,22 +16,18 @@ export const routes = [
     children: [
       {
         path: '/',
-        element: <ProtectedRouteElement />,
+        element: <ConstructorPage />,
         children: [
-          {
-            path: '/',
-            element: <ConstructorPage />,
-            children: [
-              {
-                path: 'ingredients/:id',
-                element: <IngredientsDetails />,
-              },
-            ]
-          },
           {
             path: 'ingredients/:id',
             element: <IngredientsDetails />,
           },
+        ]
+      },
+      {
+        path: '/',
+        element: <ProtectedRouteElement />,
+        children: [
           {
             path: '/profile',
             element: <ProfilePage />,

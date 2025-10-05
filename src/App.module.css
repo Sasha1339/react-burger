@@ -6,3 +6,15 @@
     box-sizing: border-box;
     padding: 30px;
 }
+
+.modal {
+    font-family: 'Jet Brains Mono', sans-serif;
+    width: 720px;
+    box-sizing: border-box;
+    padding: 60px 48px;
+    position: absolute;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

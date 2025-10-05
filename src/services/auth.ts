@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AuthResponse, UserModel} from "../shared/types";
 import {authApi} from "../api/auth";
 
-type AuthState = {
+export type AuthState = {
   state: AuthResponse | null;
   user: UserModel | null;
   isAuthenticated: boolean;
@@ -68,7 +68,6 @@ const authSlice = createSlice({
         state.authUserFailed = false;
         state.state = action.payload;
         state.user = { ...action.payload.user, password: 'password' };
-        window.localStorage.setItem('refreshToken', action.payload.refreshToken)
       })
       .addCase(signIn.rejected, (state, action) => {
         state.authSignInRequests = false;
@@ -86,7 +85,6 @@ const authSlice = createSlice({
         state.authSignUpRequests = false;
         state.state = action.payload;
         state.user = { ...action.payload.user, password: 'password' };
-        window.localStorage.setItem('refreshToken', action.payload.refreshToken)
       })
       .addCase(signUp.rejected, (state, action) => {
         state.authSignUpRequests = false;
@@ -130,7 +128,6 @@ const authSlice = createSlice({
         state.authLogoutFailed = false;
         state.state = null;
         state.user = null;
-        window.localStorage.removeItem('refreshToken')
       })
       .addCase(logout.rejected, (state, action) => {
         state.authLogoutRequests = false;
@@ -149,7 +146,6 @@ const authSlice = createSlice({
       .addCase(token.rejected, (state, action) => {
         state.authTokenRequests = false;
         state.authTokenFailed = true;
-        window.localStorage.removeItem('refreshToken')
         console.log(action.error.message);
       })
   }

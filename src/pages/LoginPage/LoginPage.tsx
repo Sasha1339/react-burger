@@ -40,14 +40,12 @@ export const LoginPage: FC<Props> = ({...props}) => {
         <h3>Вход</h3>
         <Input type='email' placeholder={'E-mail'} error={!!errorEmail} errorText={errorEmail}
                onInvalid={onInvalidEmail} onInput={() => setErrorEmail(undefined)} value={email}
-               onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
+               onChange={(e) => setEmail(e.currentTarget.value)}   onPointerEnterCapture={() => {}}
+               onPointerLeaveCapture={() => {}}/>
         <Input type={showIcon ? 'text' : 'password'} icon={showIcon ? 'ShowIcon' : 'HideIcon'}
                onIconClick={() => setShowIcon(!showIcon)} placeholder={'Пароль'} value={password}
-               onChange={(e) => setPassword(e.currentTarget.value)} onPointerEnterCapture={() => {
-        }} onPointerLeaveCapture={() => {
-        }}/>
+               onChange={(e) => setPassword(e.currentTarget.value)}   onPointerEnterCapture={() => {}}
+               onPointerLeaveCapture={() => {}}/>
         <Button htmlType='submit'>
           Войти
         </Button>

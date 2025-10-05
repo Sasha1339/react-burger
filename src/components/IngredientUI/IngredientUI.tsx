@@ -30,31 +30,9 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
     })
   });
 
-  const { isModalOpen, openModal, closeModal } = useModal();
-
-  useEffect(() => {
-    if (location.pathname.includes('/ingredients') && location.pathname.includes(ingredient._id)) {
-      onClick();
-    }
-  }, []);
-
   const onClick = useCallback(() => {
-    dispatch(ingredientsActions.openIngredientsDetails(ingredient));
-    openModal();
-    navigate(`ingredients/${ingredient._id}`)
-  }, [dispatch, navigate, openModal, ingredient])
-
-  const onClose = () => {
-    dispatch(ingredientsActions.closeIngredientsDetails());
-    closeModal();
-    navigate(`/`)
-  }
-
-  const modal = (
-    <Modal header="Детали ингредиента" onClose={onClose}>
-      <Outlet />
-    </Modal>
-  )
+    navigate(`ingredients/${ingredient._id}`, {state: {background: location}})
+  }, [dispatch, navigate, ingredient])
 
   return (
     <>
@@ -69,7 +47,6 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
         </div>
         <div className={styles.title}>{ingredient.name}</div>
     </div>}
-      {isModalOpen && modal}
     </>
   )
 }
