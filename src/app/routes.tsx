@@ -3,6 +3,8 @@ import {LoginPage} from "../pages/LoginPage/LoginPage";
 import {RegisterPage} from "../pages/RegisterPage/RegisterPage";
 import {ForgotPasswordPage} from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import {ResetPasswordPage} from "../pages/ResetPasswordPage/ResetPasswordPage";
+import {ProfilePage} from "../pages/ProfilePage/ProfilePage";
+import {ProfileFields} from "../components/ProfileFileds/ProfileFields";
 
 export const routes = [
   {
@@ -11,7 +13,13 @@ export const routes = [
     children: [
       {
         path: '/',
-        element: <ResetPasswordPage />
+        element: <ProfilePage />,
+        children: [
+          {
+            path: '/',
+            element: <ProfileFields />,
+          }
+        ]
       },
     ]
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {combineReducers} from "redux";
 import {ingredientsReducer} from "./services/ingredients";
@@ -10,12 +9,14 @@ import {Provider} from "react-redux";
 import {orderReducer} from "./services/order";
 import {routes} from "./app/routes";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {profileReducer} from "./services/profile";
 
 const router = createBrowserRouter(routes);
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
-  order: orderReducer
+  order: orderReducer,
+  profile: profileReducer,
 });
 
 export const store = configureStore({

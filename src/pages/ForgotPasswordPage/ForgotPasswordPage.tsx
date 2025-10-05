@@ -1,11 +1,14 @@
 import {FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
 import styles from "./ForgotPasswordPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {passwordApi} from "../../api/password";
 
 type Props = {}
 
 export const ForgotPasswordPage: FC<Props> = ({...props}) => {
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
 
@@ -13,7 +16,10 @@ export const ForgotPasswordPage: FC<Props> = ({...props}) => {
 
   const onSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }, [email])
+    passwordApi.forgotPassword(email).then((e) => {
+      navigate('/reset-password');
+    });
+  }, [email, navigate])
 
   const onInvalidEmail = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
