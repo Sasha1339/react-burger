@@ -1,11 +1,10 @@
-import {FC, FormEvent, SyntheticEvent, useCallback, useEffect, useRef, useState} from "react";
+import {FC, FormEvent, SyntheticEvent,KeyboardEvent, useCallback, useEffect, useRef, useState} from "react";
 import styles from "./ProfileFields.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {passwordApi} from "../../api/password";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useSelector} from "react-redux";
-import {profileSelectors} from "../../services/profile";
+import {authSelectors} from "../../services/auth";
 
 type Props = {}
 
@@ -14,9 +13,10 @@ export const ProfileFields: FC<Props> = ({...props}) => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const profile = useSelector(profileSelectors.profile)
+  const profile = useSelector(authSelectors.user)
 
   const [name, setName] = useState<string>('');
+  const formRef = useRef<HTMLFormElement>(null);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -28,8 +28,10 @@ export const ProfileFields: FC<Props> = ({...props}) => {
 
   const onSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name);
-  }, [name, email, password, navigate])
+    setShowName(false);
+    setShowPassword(false);
+    setShowEmail(false);
+  }, [name, email, password, setShowName, setShowPassword, setShowEmail]);
 
   useEffect(() => {
     if (profile) {
@@ -44,12 +46,19 @@ export const ProfileFields: FC<Props> = ({...props}) => {
     setErrorEmail('Данные поля не соответствуют форме Email')
   }
 
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      const valid = formRef.current?.checkValidity();
+      formRef.current?.requestSubmit();
+    }
+  }, []);
+
   return (
-    <aside className={styles.login}>
-      <form className={styles.login_form} onSubmit={onSubmit}>
+    <aside className={styles.login} onKeyDown={onKeyDown}>
+      <form ref={formRef} className={styles.login_form} onSubmit={onSubmit}>
         <Input type='text' placeholder={'Имя'} icon={'EditIcon'} value={name} onIconClick={() => setShowName(!showName)}
                disabled={!showName}
-               onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={() => {
+               onChange={(e) => setName(e.currentTarget.value)} onPointerEnterCapture={() => {
         }} onPointerLeaveCapture={() => {
         }}/>
         <Input type='email' placeholder={'Логин'} error={!!errorEmail} errorText={errorEmail} icon={'EditIcon'}
@@ -62,7 +71,7 @@ export const ProfileFields: FC<Props> = ({...props}) => {
         <Input type='password' placeholder={'Пароль'} icon={'EditIcon'} value={password}
                disabled={!showPassword}
                onIconClick={() => setShowPassword(!showPassword)}
-               onChange={(e) => setEmail(e.currentTarget.value)} onPointerEnterCapture={() => {
+               onChange={(e) => setPassword(e.currentTarget.value)} onPointerEnterCapture={() => {
         }} onPointerLeaveCapture={() => {
         }}/>
       </form>

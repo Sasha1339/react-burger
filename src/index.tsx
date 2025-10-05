@@ -9,14 +9,13 @@ import {Provider} from "react-redux";
 import {orderReducer} from "./services/order";
 import {routes} from "./app/routes";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {profileReducer} from "./services/profile";
-
+import {authReducer} from "./services/auth";
 const router = createBrowserRouter(routes);
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
   order: orderReducer,
-  profile: profileReducer,
+  auth: authReducer,
 });
 
 export const store = configureStore({

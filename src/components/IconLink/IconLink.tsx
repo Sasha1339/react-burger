@@ -4,12 +4,13 @@ import styles from "./IconLink.module.css";
 type Props = {
   icon?: ReactNode;
   children: ReactNode;
+  onClick?: () => void;
 }
 
-export const IconLink: FC<Props> = ({icon, children, ...props}) => {
+export const IconLink: FC<Props> = ({icon, onClick, children, ...props}) => {
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={onClick}>
       { icon }
       <span className={styles.title}>
         { children }

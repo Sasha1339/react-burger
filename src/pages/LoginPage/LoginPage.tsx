@@ -1,11 +1,20 @@
-import {FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
+import {FC, FormEvent, SyntheticEvent, useCallback, useEffect, useState} from "react";
 import styles from "./LoginPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {authSelectors, signIn} from "../../services/auth";
+import {useSelector} from "react-redux";
 
 type Props = {}
 
 export const LoginPage: FC<Props> = ({...props}) => {
+
+  const dispatch = useAppDispatch();
+
+  const user = useSelector(authSelectors.user);
+  const refreshToken = window.localStorage.getItem('refreshToken');
 
   const [email, setEmail] = useState<string>('');
   const [showIcon, setShowIcon] = useState<boolean>(false);
@@ -15,7 +24,9 @@ export const LoginPage: FC<Props> = ({...props}) => {
 
   const onSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }, [])
+    dispatch(signIn({ email, password }))
+  }, [email, password, dispatch])
+
 
   const onInvalidEmail = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -23,7 +34,7 @@ export const LoginPage: FC<Props> = ({...props}) => {
   }
 
   return (
-    <main className={styles.login}>
+    user || refreshToken ? <Navigate to={'/'} replace /> : <main className={styles.login}>
 
       <form className={styles.login_form} onSubmit={onSubmit}>
         <h3>Вход</h3>

@@ -1,6 +1,6 @@
 import {HOST_URL} from "../shared/const";
 import {HttpError} from "../shared/api/HttpError";
-import {SuccessResetPasswordBody} from "../shared/types";
+import {SuccessBody} from "../shared/types";
 
 
 class PasswordApi {
@@ -13,7 +13,7 @@ class PasswordApi {
     this.resetPassword = this.resetPassword.bind(this);
   }
 
-  async forgotPassword(email: string): Promise<SuccessResetPasswordBody> {
+  async forgotPassword(email: string): Promise<SuccessBody> {
     const response = await fetch(this.API_URL, {
       method: 'POST',
       headers: {
@@ -26,10 +26,10 @@ class PasswordApi {
       throw await HttpError.setMessage(response);
     }
 
-    return await response.json() as Promise<SuccessResetPasswordBody>;
+    return await response.json() as Promise<SuccessBody>;
   };
 
-  async resetPassword(password: string, token: string): Promise<SuccessResetPasswordBody> {
+  async resetPassword(password: string, token: string): Promise<SuccessBody> {
     const response = await fetch(`${this.API_URL}/reset`, {
       method: 'POST',
       headers: {
@@ -42,7 +42,7 @@ class PasswordApi {
       throw await HttpError.setMessage(response);
     }
 
-    return await response.json() as Promise<SuccessResetPasswordBody>;
+    return await response.json() as Promise<SuccessBody>;
   };
 
 }

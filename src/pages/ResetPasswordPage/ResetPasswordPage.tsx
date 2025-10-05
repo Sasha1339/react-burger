@@ -1,7 +1,7 @@
 import {FC, SyntheticEvent, useCallback, useState} from "react";
 import styles from "./ResetPasswordPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {passwordApi} from "../../api/password";
 
 type Props = {}
@@ -9,6 +9,7 @@ type Props = {}
 export const ResetPasswordPage: FC<Props> = ({...props}) => {
 
   const navigate = useNavigate();
+  const params = useParams();
 
   const [showIcon, setShowIcon] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
@@ -17,9 +18,14 @@ export const ResetPasswordPage: FC<Props> = ({...props}) => {
   const onSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     passwordApi.resetPassword(password, token).then((e) => {
+      window.sessionStorage.removeItem('id')
       navigate('/login');
     });
   }, [password, token, navigate])
+
+  if (params['id'] !== window.sessionStorage.getItem('id')) {
+    return <Navigate to={'/'} replace />
+  }
 
   return (
     <main className={styles.login}>

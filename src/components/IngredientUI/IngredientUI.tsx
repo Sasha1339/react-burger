@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useCallback, useEffect} from "react";
 import {ConstructorIngredient} from "../BurgerIngredients/types";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./IngredientUI.module.css";
@@ -8,6 +8,8 @@ import {useModal} from "../../hooks/useModal";
 import {useDrag} from "react-dnd";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {ingredientsActions} from "../../services/ingredients";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {ingredients} from "../BurgerIngredients/mock";
 
 type Props = {
   ingredient: ConstructorIngredient
@@ -16,6 +18,9 @@ type Props = {
 export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
 
   const dispatch = useAppDispatch();
+  const location = useLocation()
+
+  const navigate = useNavigate();
 
   const [{isDrag}, dragRef] = useDrag({
     type: 'ingredient',
@@ -27,19 +32,27 @@ export const IngredientUI: FC<Props> = ({ingredient,  ...props}) => {
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
-  const onClick = () => {
+  useEffect(() => {
+    if (location.pathname.includes('/ingredients') && location.pathname.includes(ingredient._id)) {
+      onClick();
+    }
+  }, []);
+
+  const onClick = useCallback(() => {
     dispatch(ingredientsActions.openIngredientsDetails(ingredient));
     openModal();
-  }
+    navigate(`ingredients/${ingredient._id}`)
+  }, [dispatch, navigate, openModal, ingredient])
 
   const onClose = () => {
     dispatch(ingredientsActions.closeIngredientsDetails());
     closeModal();
+    navigate(`/`)
   }
 
   const modal = (
     <Modal header="Детали ингредиента" onClose={onClose}>
-      <IngredientsDetails />
+      <Outlet />
     </Modal>
   )
 
