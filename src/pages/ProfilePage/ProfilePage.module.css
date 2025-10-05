@@ -33,6 +33,7 @@
     user-select: none;
     color: var(--border-disabled);
     margin-top: 100px;
+    text-align: left;
 }
 
 .profile_route {

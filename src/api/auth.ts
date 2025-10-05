@@ -33,13 +33,14 @@ class AuthApi {
     return await response.json() as Promise<UserResponse>;
   };
 
-  async updateUser(token :string): Promise<UserResponse> {
+  async updateUser(data: {token: string, body: UserModel}): Promise<UserResponse> {
     const response = await fetch(`${this.API_URL}/user`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `${token}`,
+        Authorization: `${data.token}`,
       },
+      body: JSON.stringify(data.body)
     });
 
     if (!response.ok) {

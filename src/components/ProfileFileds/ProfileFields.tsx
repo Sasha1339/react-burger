@@ -4,7 +4,7 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useSelector} from "react-redux";
-import {authSelectors} from "../../services/auth";
+import {authSelectors, updateUser} from "../../services/auth";
 
 type Props = {}
 
@@ -13,7 +13,8 @@ export const ProfileFields: FC<Props> = ({...props}) => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const profile = useSelector(authSelectors.user)
+  const profile = useSelector(authSelectors.user);
+  const accessToken = useSelector(authSelectors.accessToken);
 
   const [name, setName] = useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);
@@ -31,6 +32,9 @@ export const ProfileFields: FC<Props> = ({...props}) => {
     setShowName(false);
     setShowPassword(false);
     setShowEmail(false);
+    if (accessToken) {
+      dispatch(updateUser({ token: accessToken, body: { name, email, password }}))
+    }
   }, [name, email, password, setShowName, setShowPassword, setShowEmail]);
 
   useEffect(() => {
