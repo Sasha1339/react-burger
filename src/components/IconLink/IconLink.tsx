@@ -17,5 +17,4 @@ export const IconLink: FC<Props> = ({icon, onClick, children, ...props}) => {
       </span>
     </div>
   )
-
 }

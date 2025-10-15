@@ -4,3 +4,4 @@ export interface IngredientCard {
   price: number;
   image: string;
 }
+

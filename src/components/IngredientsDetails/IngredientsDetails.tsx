@@ -43,5 +43,4 @@ export const IngredientsDetails: FC<Props> = ({...props}) => {
       }
     </div>
   )
-
 }

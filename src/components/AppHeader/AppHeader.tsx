@@ -24,6 +24,4 @@ export const AppHeader: FC = () => {
       </div>
     </header>
   )
-
-
 }
