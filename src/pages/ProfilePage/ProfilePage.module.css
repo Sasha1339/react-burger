@@ -1,0 +1,50 @@
+.profile {
+    font-family: 'Jet Brains Mono', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 100px 0;
+}
+
+.profile_section_left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+}
+
+.profile_section_center {
+    display: flex;
+    height: 100%;
+    width: 25%;
+}
+
+.profile_section_right {
+    display: flex;
+    height: 100%;
+    width: 25%;
+}
+
+.profile_hint {
+    user-select: none;
+    color: var(--border-disabled);
+    margin-top: 100px;
+    text-align: left;
+}
+
+.profile_route {
+    cursor: pointer;
+    color: var(--color-text-disabled);
+}
+
+.profile_route:hover {
+    color: var(--color-text-active);
+}
+
+.profile_route_active {
+    color: var(--color-text-active);
+}

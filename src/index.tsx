@@ -1,21 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {combineReducers} from "redux";
 import {ingredientsReducer} from "./services/ingredients";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import {orderReducer} from "./services/order";
+import {BrowserRouter as Router} from "react-router-dom";
+import {authReducer} from "./services/auth";
+import App from "./App";
+import {authMiddlewareRemoveToken, authMiddlewareSetToken} from "./services/middlewares";
 
 export const reducer = combineReducers({
   ingredients: ingredientsReducer,
-  order: orderReducer
+  order: orderReducer,
+  auth: authReducer,
 });
 
 export const store = configureStore({
   reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authMiddlewareSetToken).concat(authMiddlewareRemoveToken),
 });
 
 export type AppDispatch = typeof store.dispatch;
@@ -28,7 +34,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>
 );

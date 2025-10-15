@@ -11,6 +11,8 @@ import {useSelector} from "react-redux";
 import {ingredientsActions, ingredientsSelectors} from "../../services/ingredients";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {createOrderRequest, orderActions} from "../../services/order";
+import {authSelectors} from "../../services/auth";
+import {Navigate, replace, useNavigate} from "react-router-dom";
 
 type Props = {}
 
@@ -18,6 +20,8 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
 
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useAppDispatch();
+  const user = useSelector(authSelectors.user);
+  const navigate = useNavigate();
   const ingredients = useSelector(ingredientsSelectors.constructorIngredients)
   const upBun = useSelector(ingredientsSelectors.upBun);
   const ingredientsWithoutBun = useSelector(ingredientsSelectors.otherIngredients);
@@ -26,7 +30,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
   const [{isUpBunHover, isNotUpBunHover}, upBunDrop] = useDrop({
     accept: 'ingredient',
     drop(item: Ingredient) {
-      item.type === IngredientsType.BUN && dispatch(ingredientsActions.addUpBunConstruct(item))
+      item.type === IngredientsType.BUN && dispatch(ingredientsActions.addUpBunConstruct(item)) && dispatch(ingredientsActions.addDownBunConstruct(item))
     },
     collect: (monitor) => ({
       isUpBunHover: monitor.isOver() && monitor.getItem().type === IngredientsType.BUN,
@@ -48,7 +52,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
   const [{isDownBunHover, isNotDownBunHover}, downBunDrop] = useDrop({
     accept: 'ingredient',
     drop(item: Ingredient) {
-      item.type === IngredientsType.BUN && dispatch(ingredientsActions.addDownBunConstruct(item))
+      item.type === IngredientsType.BUN && dispatch(ingredientsActions.addDownBunConstruct(item)) && dispatch(ingredientsActions.addUpBunConstruct(item))
     },
     collect: (monitor) => ({
       isDownBunHover: monitor.isOver() && monitor.getItem().type === IngredientsType.BUN,
@@ -57,6 +61,10 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
   });
 
   const onClick = useCallback(() => {
+    if (!user) {
+      navigate('/login', { replace: true });
+    }
+
 
     if (ingredients.upBun && ingredients.downBun) {
       dispatch(createOrderRequest([ingredients.upBun._id, ...ingredients.other.map(e => e._id), ingredients.downBun._id]))
@@ -64,7 +72,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
     }
 
 
-  }, [ingredients, dispatch, openModal]);
+  }, [ingredients, dispatch, openModal, user]);
 
   const onClose = useCallback(() => {
     dispatch(orderActions.clearOrder())
