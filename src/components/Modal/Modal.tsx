@@ -47,5 +47,4 @@ export const Modal: FC<Props> = ({header, children, onClose, ...props}) => {
       modalRoot
     )
   )
-
 }

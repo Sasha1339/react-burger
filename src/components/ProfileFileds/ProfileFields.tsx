@@ -10,8 +10,6 @@ type Props = {}
 
 export const ProfileFields: FC<Props> = ({...props}) => {
 
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const profile = useSelector(authSelectors.user);
   const accessToken = useSelector(authSelectors.accessToken);

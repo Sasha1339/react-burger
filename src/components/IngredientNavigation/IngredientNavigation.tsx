@@ -18,5 +18,4 @@ export const IngredientNavigation: FC<Props> = ({items, type, onChangeTab, ...pr
       ))}
     </nav>
   )
-
 }
