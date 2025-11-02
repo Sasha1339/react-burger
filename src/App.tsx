@@ -11,6 +11,8 @@ import {RegisterPage} from "./pages/RegisterPage/RegisterPage";
 import {ForgotPasswordPage} from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 import {ResetPasswordPage} from "./pages/ResetPasswordPage/ResetPasswordPage";
 import {Modal} from "./components/Modal/Modal";
+import {FeedPage} from "./pages/FeedPage/FeedPage";
+import {OrderPage} from "./pages/OrderPage/OrderPage";
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
             <Route path="" element={<ProfileFields />} />
             <Route path="orders" element={<LoginPage />} />
           </Route>
+          <Route path="feed" element={<FeedPage />} />
+          <Route path="feed/:id" element={<OrderPage />}/>
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

@@ -1,0 +1,56 @@
+.article {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    overflow: auto;
+    gap: 60px;
+    font-family: "Jet Brains Mono", sans-serif;
+}
+
+.up_info {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 36px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.header_info {
+    text-align: start;
+    font-size: 24px;
+}
+
+.default_text {
+    color: var(--color-text-active);
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.ready {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    font-size: 28px;
+    gap: 5px;
+    color: var(--color-text-ready);
+    font-family: "Iceland", sans-serif;
+}
+
+.in_process {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    font-size: 28px;
+    gap: 5px;
+    color: var(--color-text-active);
+    font-family: "Iceland", sans-serif;
+}
+
+.amount {
+    font-size: 120px;
+    text-shadow: 0 0 20px var(--border-color-first);
+}

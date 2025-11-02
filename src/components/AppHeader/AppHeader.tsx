@@ -12,7 +12,7 @@ export const AppHeader: FC = () => {
     <header className={styles.header}>
       <nav className={styles.navigation}>
         <IconLink icon={<BurgerIcon type='primary'/>} onClick={() => navigate('/')}>Коструктор</IconLink>
-        <IconLink icon={<ListIcon type='primary'/>}>Лист заказов</IconLink>
+        <IconLink icon={<ListIcon type='primary'/>} onClick={() => navigate('/feed')}>Лист заказов</IconLink>
       </nav>
 
       <div className={styles.logo}>

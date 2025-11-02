@@ -1,1 +1,1 @@
-export const HOST_URL = 'https://norma.nomoreparties.space';
+export const HOST_URL = 'https://norma.education-services.ru';
