@@ -160,3 +160,4 @@ const ingredientsSlice = createSlice({
 })
 
 export const { reducer: ingredientsReducer, selectors: ingredientsSelectors, actions: ingredientsActions } = ingredientsSlice;
+

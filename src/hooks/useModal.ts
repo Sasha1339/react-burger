@@ -16,5 +16,4 @@ export const useModal = () => {
     openModal,
     closeModal
   }
-
 }

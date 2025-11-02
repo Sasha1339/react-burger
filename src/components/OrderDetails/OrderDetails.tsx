@@ -25,5 +25,4 @@ export const OrderDetails: FC<Props> = ({...props }) => {
       }
     </div>
   )
-
 }
