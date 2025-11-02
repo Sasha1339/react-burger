@@ -16,15 +16,15 @@ export const FeedCommonInfo: FC<Props> = ({ready, inProcess, allTimes, today, ..
       <div className={styles.up_info}>
         <div className={styles.ready}>
           <div className={styles.default_text}>Готовы:</div>
-          {ready.map((e) => (
-            <div>{e}</div>
+          {ready.map((e, i) => (
+            <div key={i}>{e}</div>
           ))}
         </div>
         <div className={styles.in_process}>
           <div className={styles.in_process}>
             <div className={styles.default_text}>В работе:</div>
-            {inProcess.map((e) => (
-              <div>{e}</div>
+            {inProcess.map((e, i) => (
+              <div key={i}>{e}</div>
             ))}
           </div>
         </div>

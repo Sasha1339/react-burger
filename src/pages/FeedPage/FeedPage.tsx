@@ -1,9 +1,6 @@
 import {FC} from "react";
 import styles from "./FeedPage.module.css";
-import {Navigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {authSelectors} from "../../services/auth";
-import {BurgerConstructor} from "../../components/BurgerConstructor/BurgerConstructor";
+import {Navigate, useLocation, useNavigate} from "react-router-dom";
 import {OrderFeed} from "../../components/OrderFeed/OrderFeed";
 import {dateOrders, orders} from "./__mock__/feed";
 import {FeedCommonInfo} from "../../components/FeedCommonInfo/FeedCommonInfo";
@@ -12,6 +9,9 @@ type Props = {}
 
 export const FeedPage: FC<Props> = ({...props}) => {
 
+  const navigator = useNavigate();
+
+  const location = useLocation();
 
   return (
     <main className={styles.main}>
@@ -20,7 +20,7 @@ export const FeedPage: FC<Props> = ({...props}) => {
         <section className={styles.section}>
           <div className={styles.feed}>
             {orders.map((e, i) => (
-              <OrderFeed key={i} orderModel={e} />
+              <OrderFeed key={i} orderModel={e} onClick={() => {navigator(`${e.id}`, {state: {background: location}})}} />
             ))}
           </div>
         </section>

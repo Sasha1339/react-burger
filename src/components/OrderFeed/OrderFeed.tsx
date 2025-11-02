@@ -6,15 +6,16 @@ import {IngredientFeedCircle} from "../IngredientFeedCircle/IngredientFeedCircle
 import {useNavigate} from "react-router-dom";
 
 type Props = {
-  orderModel: OrderFeedModel
+  orderModel: OrderFeedModel;
+  onClick: () => void
 }
 
-export const OrderFeed: FC<Props> = ({orderModel, ...props }) => {
+export const OrderFeed: FC<Props> = ({orderModel, onClick, ...props }) => {
 
-  const navigator = useNavigate();
+
 
   return (
-    <div className={styles.modal_content} onClick={() => {navigator(`${orderModel.id}`)}}>
+    <div className={styles.modal_content} onClick={onClick}>
 
       <div className={styles.up_data}>
         <div className={styles.order_id}>{`#${orderModel.order.number}`}</div>

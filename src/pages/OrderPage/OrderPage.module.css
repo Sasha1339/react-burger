@@ -9,7 +9,7 @@
     height: 100%;
     gap: 40px;
     box-sizing: border-box;
-    padding: 0 30%;
+
 }
 
 .ingredients {
@@ -20,6 +20,7 @@
     max-height: 30vh;
     overflow-y: auto;
     scrollbar-width: none;
+    gap: 10px;
 }
 
 .ingredient {
@@ -27,7 +28,7 @@
     display: grid;
     grid-template-columns: 64px auto auto;
     gap: 16px;
-
+    align-items: center;
 }
 
 .text_block {

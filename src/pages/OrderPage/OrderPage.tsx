@@ -23,7 +23,7 @@ export const OrderPage: FC<Props> = ({...props}) => {
         <div className={styles.text_block}>Состав:</div>
         <div className={styles.ingredients}>
           {orderModel.order.ingredients.map((e, i) => (
-            <div className={styles.ingredient}>
+            <div key={i} className={styles.ingredient}>
               <IngredientFeedCircle name={e.name} url={e.image}/>
               <div className={styles.text_block_ingredient}>{e.name}</div>
               <div className={`${styles.number} ${styles.price}`}>
