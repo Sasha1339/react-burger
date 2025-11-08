@@ -1,22 +1,18 @@
 import {FC, useEffect, useRef} from "react";
 import styles from "./ProfileOrders.module.css";
 import {useLocation, useNavigate} from "react-router-dom";
-
-import {useSelector} from "react-redux";
 import {orderSelectors} from "../../services/order";
-import {getIngredients, ingredientsSelectors} from "../../services/ingredients";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {socketActions} from "../../services/actions/socket";
 import {OrderFeed} from "../OrderFeed/OrderFeed";
-
-import gsap from 'gsap'
+import {authSelectors} from "../../services/auth";
 
 
 type Props = {}
 
 export const ProfileOrders: FC<Props> = ({...props}) => {
 
-  const allOrders = useSelector(orderSelectors.allUserOrders)
+  const allOrders = useAppSelector(orderSelectors.allUserOrders)
 
   const navigator = useNavigate();
 
@@ -24,15 +20,16 @@ export const ProfileOrders: FC<Props> = ({...props}) => {
 
   const ref = useRef<HTMLElement>(null)
 
-  const ingredients = useSelector(ingredientsSelectors.ingredients);
   const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(authSelectors.accessToken);
 
   useEffect(() => {
-    dispatch(socketActions.startConnection());
-    if (ingredients?.length < 1) {
-      dispatch(getIngredients())
+    if (accessToken) {
+      dispatch(socketActions.startConnection())
     }
-  }, []);
+
+    return () => {dispatch(socketActions.closeConnection())}
+  }, [accessToken]);
 
 
   if (!allOrders?.orders) {

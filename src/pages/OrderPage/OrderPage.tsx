@@ -1,12 +1,11 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import styles from "./OrderPage.module.css";
 import {IngredientFeedCircle} from "../../components/IngredientFeedCircle/IngredientFeedCircle";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {orderSelectors} from "../../services/order";
 import {useParams} from "react-router-dom";
 import {ingredientsSelectors} from "../../services/ingredients";
-import {ConstructorIngredient} from "../../components/BurgerIngredients/types";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
@@ -14,36 +13,26 @@ export const OrderPage: FC<Props> = ({...props}) => {
 
   const { id } = useParams();
 
-  const order = useSelector(orderSelectors.allOrders)?.orders.find(e => e._id === id)
+  const order = useAppSelector(orderSelectors.allOrders)?.orders.find(e => e._id === id);
 
-  const ingredients = useSelector(ingredientsSelectors.ingredients)?.filter(e => order?.ingredients.includes(e._id));
+  const ingredients = useAppSelector(ingredientsSelectors.ingredients);
+  const isRequested = useAppSelector(ingredientsSelectors.isRequested);
 
-  const [sortedIngredients, setSortedIngredients] = useState<ConstructorIngredient[]>([])
+  const ingredientsSorted = useMemo(() => {
 
-  useEffect(() => {
-    if (ingredients?.length > 0) {
-      const newSorted = []
-      const sorted: Record<string, number> = {}
-      ingredients?.forEach(e => {
-        if (sorted[e._id]) {
-          sorted[e._id] += 1;
-        } else {
-          sorted[e._id] = 0;
-        }
-      });
+    const sorted: Record<string, number> = {}
 
-      for (let key in sorted) {
-        const find = {...ingredients?.find(e => e._id === key)};
-        if (find) {
-          find.amount = sorted[key];
-          newSorted.push(find);
-        }
+    order?.ingredients.forEach((e) => {
+      if (sorted[e]) {
+        sorted[e] += 1;
+      } else {
+        sorted[e] = 1;
       }
+    })
 
-      setSortedIngredients(newSorted as ConstructorIngredient[]);
+    return sorted;
 
-    }
-  }, []);
+  }, [order]);
 
   if (!order || (ingredients?.length < 1)) {
     return null;
@@ -59,16 +48,24 @@ export const OrderPage: FC<Props> = ({...props}) => {
       <div className={styles.block_order}>
         <div className={styles.text_block}>Состав:</div>
         <div className={styles.ingredients}>
-          {sortedIngredients.map((e, i) => (
+          {Object.entries(ingredientsSorted).map((e, i) => {
+
+            const ingredient = ingredients.find(i => i._id === e[0]);
+
+            if (!ingredient) {
+              return null;
+            }
+
+            return (
             <div key={i} className={styles.ingredient}>
-              <IngredientFeedCircle name={e.name} url={e.image}/>
-              <div className={styles.text_block_ingredient}>{'Name'}</div>
+              <IngredientFeedCircle name={ingredient.name} url={ingredient.image}/>
+              <div className={styles.text_block_ingredient}>{ingredient.name}</div>
               <div className={`${styles.number} ${styles.price}`}>
-                <span>{`${e.amount} x ${e.price}`}</span>
+                <span>{`${(e[1])} x ${ingredient.price}`}</span>
                 <CurrencyIcon type='primary'/>
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
       </div>

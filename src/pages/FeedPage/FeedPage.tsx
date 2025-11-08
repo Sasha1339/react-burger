@@ -3,10 +3,10 @@ import styles from "./FeedPage.module.css";
 import {Navigate, useLocation, useNavigate} from "react-router-dom";
 import {OrderFeed} from "../../components/OrderFeed/OrderFeed";
 import {FeedCommonInfo} from "../../components/FeedCommonInfo/FeedCommonInfo";
-import {useSelector} from "react-redux";
 import {orderSelectors} from "../../services/order";
-import {getIngredients, ingredientsSelectors} from "../../services/ingredients";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {ingredientsSelectors} from "../../services/ingredients";
+import {socketActions} from "../../services/actions/socket";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
@@ -15,21 +15,20 @@ export const FeedPage: FC<Props> = ({...props}) => {
   const navigator = useNavigate();
 
   const location = useLocation();
-
   const dispatch = useAppDispatch();
 
-  const orders = useSelector(orderSelectors.allOrders)
-  const ordersReady = useSelector(orderSelectors.allReadyOrders)
-  const ordersInProcess = useSelector(orderSelectors.allInProcessOrders)
+  const orders = useAppSelector(orderSelectors.allOrders)
+  const ordersReady = useAppSelector(orderSelectors.allReadyOrders)
+  const ordersInProcess = useAppSelector(orderSelectors.allInProcessOrders)
 
-  const ingredients = useSelector(ingredientsSelectors.ingredients)
+  const ingredients = useAppSelector(ingredientsSelectors.ingredients)
+
 
   useEffect(() => {
-    if (ingredients.length < 1) {
-      dispatch(getIngredients())
-    }
-  }, []);
+    dispatch(socketActions.startConnection());
 
+    return () => {dispatch(socketActions.closeConnection())}
+  }, []);
 
   if (!orders || ingredients.length < 1) {
     return null;

@@ -1,26 +1,18 @@
 import styles from './IngredientsDetails.module.css';
 import {FC, useEffect, useState} from "react";
 import {UnitInfo} from "../UnitInfo/UnitInfo";
-import {useSelector} from "react-redux";
-import {getIngredients, ingredientsSelectors} from "../../services/ingredients";
+import {ingredientsSelectors} from "../../services/ingredients";
 import {useLocation, useParams} from "react-router-dom";
 import {ConstructorIngredient} from "../BurgerIngredients/types";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
 export const IngredientsDetails: FC<Props> = ({...props}) => {
 
   const params = useParams()
-  const dispatch = useAppDispatch();
-  const ingredients = useSelector(ingredientsSelectors.ingredients);
+  const ingredients = useAppSelector(ingredientsSelectors.ingredients);
   const [ingredient, setIngredient] = useState<ConstructorIngredient | undefined>(undefined);
-
-  useEffect(() => {
-    if (ingredients.length === 0) {
-      dispatch(getIngredients());
-    }
-  }, []);
 
   useEffect(() => {
     const currentIngredient = ingredients.find((e) => e._id === params['id']);

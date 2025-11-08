@@ -7,9 +7,8 @@ import {OrderDetails} from "../OrderDetails/OrderDetails";
 import {Modal} from "../Modal/Modal";
 import {useModal} from "../../hooks/useModal";
 import {useDrop} from "react-dnd";
-import {useSelector} from "react-redux";
 import {ingredientsActions, ingredientsSelectors} from "../../services/ingredients";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {createOrderRequest, orderActions} from "../../services/order";
 import {authSelectors} from "../../services/auth";
 import {Link, Navigate, replace, Route, useNavigate} from "react-router-dom";
@@ -20,13 +19,13 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
 
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useAppDispatch();
-  const user = useSelector(authSelectors.user);
-  const accessToken = useSelector(authSelectors.accessToken);
+  const user = useAppSelector(authSelectors.user);
+  const accessToken = useAppSelector(authSelectors.accessToken);
   const navigate = useNavigate();
-  const ingredients = useSelector(ingredientsSelectors.constructorIngredients)
-  const upBun = useSelector(ingredientsSelectors.upBun);
-  const ingredientsWithoutBun = useSelector(ingredientsSelectors.otherIngredients);
-  const downBun = useSelector(ingredientsSelectors.downBun);
+  const ingredients = useAppSelector(ingredientsSelectors.constructorIngredients)
+  const upBun = useAppSelector(ingredientsSelectors.upBun);
+  const ingredientsWithoutBun = useAppSelector(ingredientsSelectors.otherIngredients);
+  const downBun = useAppSelector(ingredientsSelectors.downBun);
 
   const [{isUpBunHover, isNotUpBunHover}, upBunDrop] = useDrop({
     accept: 'ingredient',

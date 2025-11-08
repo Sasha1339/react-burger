@@ -16,7 +16,7 @@ import {OrderPage} from "./pages/OrderPage/OrderPage";
 import {ProfileOrders} from "./components/ProfileOrders/ProfileOrders";
 import {useEffect} from "react";
 import {useAppDispatch} from "./hooks/useAppDispatch";
-import {socketActions} from "./services/actions/socket";
+import {getIngredients} from "./services/ingredients";
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     location.state = {}
-    dispatch(socketActions.startConnection());
+    dispatch(getIngredients())
   }, []);
 
   return (
@@ -35,10 +35,9 @@ function App() {
       <AppHeader />
 
       <Routes location={background || location}>
-        <Route path="/login" element={<LoginPage/>}/>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/" element={<ProtectedRouteElement/>}>
-          <Route path="profile/orders/:id" element={
+          <Route path="/profile/orders/:id" element={
             <div className={styles.page}>
               <OrderPage />
             </div>
@@ -49,13 +48,13 @@ function App() {
             <Route path="orders" element={<ProfileOrders/>}/>
           </Route>
         </Route>
-        <Route path="feed" element={<FeedPage/>}/>
-        <Route path="feed/:id" element={
+        <Route path="/feed" element={<FeedPage/>}/>
+        <Route path="/feed/:id" element={
           <div className={styles.page}>
             <OrderPage />
           </div>
         }/>
-
+        <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -72,13 +71,14 @@ function App() {
               <IngredientsDetails/>
             </Modal>}
           />
+          <Route path="/feed/:id" element={
+            <Modal header="" onClose={() => navigate(-1)}>
+              <OrderPage />
+            </Modal>}
+          />
           <Route path="/" element={<ProtectedRouteElement />}>
-            <Route path="feed/:id" element={
-              <Modal header="" onClose={() => navigate(-1)}>
-                <OrderPage />
-              </Modal>}
-            />
-            <Route path="profile/orders/:id" element={
+
+            <Route path="/profile/orders/:id" element={
               <Modal header="" onClose={() => navigate(-1)}>
                 <OrderPage />
               </Modal>}

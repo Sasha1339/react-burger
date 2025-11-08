@@ -6,7 +6,6 @@ import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ConstructorIngredient, Ingredient, IngredientsType} from "../BurgerIngredients/types";
 import {ingredientsActions} from "../../services/ingredients";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {useSelector} from "react-redux";
 
 type Props = {
   ingredient: ConstructorIngredient;

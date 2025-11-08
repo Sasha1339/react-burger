@@ -3,10 +3,9 @@ import {FC, useEffect} from "react";
 import {CheckMarkIcon, CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderFeedModel} from "./types";
 import {IngredientFeedCircle} from "../IngredientFeedCircle/IngredientFeedCircle";
-import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {orderSelectors} from "../../services/order";
-import {getIngredients, ingredientsActions, ingredientsSelectors} from "../../services/ingredients";
+import {ingredientsSelectors} from "../../services/ingredients";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {
   id: string;
@@ -15,9 +14,9 @@ type Props = {
 
 export const OrderFeed: FC<Props> = ({id, onClick, ...props }) => {
 
-  const order = useSelector(orderSelectors.allOrders)?.orders.find((e => e._id === id));
+  const ingredients = useAppSelector(ingredientsSelectors.ingredients);
 
-  const ingredients = useSelector(ingredientsSelectors.ingredients)?.filter(e => order?.ingredients.includes(e._id));
+  const order = useAppSelector(orderSelectors.allOrders)?.orders.find((e => e._id === id));
 
   if (!order || (ingredients?.length < 1)) {
     return null;
@@ -37,8 +36,10 @@ export const OrderFeed: FC<Props> = ({id, onClick, ...props }) => {
 
       <div className={styles.down_data}>
         <div className={styles.ingredients}>
-          {ingredients.filter((e, i) => i < 5).map((e, i) => (
-            <IngredientFeedCircle key={i} name={e.name} url={e.image} translateX={-20 * i}/>
+          {order.ingredients.filter((e, i) => i < 5)
+            .map(e => ingredients?.find(i => i._id === e))
+            .map((e, i) => (
+              (e && <IngredientFeedCircle key={i} name={e.name} url={e.image} translateX={-20 * i}/>)
           ))
           }
         </div>

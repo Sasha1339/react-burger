@@ -2,8 +2,7 @@ import {FC, FormEvent, SyntheticEvent,KeyboardEvent, useCallback, useEffect, use
 import styles from "./ProfileFields.module.css";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {authSelectors, updateUser} from "../../services/auth";
 
 type Props = {}
@@ -11,8 +10,8 @@ type Props = {}
 export const ProfileFields: FC<Props> = ({...props}) => {
 
   const dispatch = useAppDispatch();
-  const profile = useSelector(authSelectors.user);
-  const accessToken = useSelector(authSelectors.accessToken);
+  const profile = useAppSelector(authSelectors.user);
+  const accessToken = useAppSelector(authSelectors.accessToken);
 
   const [name, setName] = useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);

@@ -3,9 +3,8 @@ import styles from "./LoginPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {authSelectors, signIn} from "../../services/auth";
-import {useSelector} from "react-redux";
 
 type Props = {}
 
@@ -13,7 +12,7 @@ export const LoginPage: FC<Props> = ({...props}) => {
 
   const dispatch = useAppDispatch();
 
-  const user = useSelector(authSelectors.user);
+  const user = useAppSelector(authSelectors.user);
   const refreshToken = window.localStorage.getItem('refreshToken');
 
   const [email, setEmail] = useState<string>('');
