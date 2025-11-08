@@ -15,15 +15,19 @@ import {FeedPage} from "./pages/FeedPage/FeedPage";
 import {OrderPage} from "./pages/OrderPage/OrderPage";
 import {ProfileOrders} from "./components/ProfileOrders/ProfileOrders";
 import {useEffect} from "react";
+import {useAppDispatch} from "./hooks/useAppDispatch";
+import {socketActions} from "./services/actions/socket";
 
 
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     location.state = {}
+    dispatch(socketActions.startConnection());
   }, []);
 
   return (
@@ -31,6 +35,7 @@ function App() {
       <AppHeader />
 
       <Routes location={background || location}>
+        <Route path="/login" element={<LoginPage/>}/>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/" element={<ProtectedRouteElement/>}>
           <Route path="profile/orders/:id" element={
@@ -50,7 +55,7 @@ function App() {
             <OrderPage />
           </div>
         }/>
-        <Route path="/login" element={<LoginPage/>}/>
+
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />

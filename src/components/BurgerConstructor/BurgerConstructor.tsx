@@ -12,7 +12,7 @@ import {ingredientsActions, ingredientsSelectors} from "../../services/ingredien
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {createOrderRequest, orderActions} from "../../services/order";
 import {authSelectors} from "../../services/auth";
-import {Navigate, replace, useNavigate} from "react-router-dom";
+import {Link, Navigate, replace, Route, useNavigate} from "react-router-dom";
 
 type Props = {}
 
@@ -21,6 +21,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useAppDispatch();
   const user = useSelector(authSelectors.user);
+  const accessToken = useSelector(authSelectors.accessToken);
   const navigate = useNavigate();
   const ingredients = useSelector(ingredientsSelectors.constructorIngredients)
   const upBun = useSelector(ingredientsSelectors.upBun);
@@ -62,17 +63,19 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
 
   const onClick = useCallback(() => {
     if (!user) {
-      navigate('/login', { replace: true });
+      navigate('/login', { replace: true});
+      return;
     }
 
 
-    if (ingredients.upBun && ingredients.downBun) {
-      dispatch(createOrderRequest([ingredients.upBun._id, ...ingredients.other.map(e => e._id), ingredients.downBun._id]))
+
+    if (ingredients.upBun && ingredients.downBun && accessToken) {
+      dispatch(createOrderRequest({ingredients: [ingredients.upBun._id, ...ingredients.other.map(e => e._id), ingredients.downBun._id], accessToken}))
       openModal();
     }
 
 
-  }, [ingredients, dispatch, openModal, user]);
+  }, [ingredients, dispatch, openModal, user, navigate]);
 
   const onClose = useCallback(() => {
     dispatch(orderActions.clearOrder())

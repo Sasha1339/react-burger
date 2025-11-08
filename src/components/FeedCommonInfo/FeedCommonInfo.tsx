@@ -14,26 +14,30 @@ export const FeedCommonInfo: FC<Props> = ({ready, inProcess, allTimes, today, ..
   return (
     <div className={styles.article}>
       <div className={styles.up_info}>
+        <div className={styles.header_up}>
+        <div className={styles.default_text}>Готовы:</div>
         <div className={styles.ready}>
-          <div className={styles.default_text}>Готовы:</div>
-          {ready.map((e, i) => (
+          {ready.filter((_, i) => i < 20).map((e, i) => (
             <div key={i}>{e}</div>
           ))}
         </div>
-        <div className={styles.in_process}>
-          <div className={styles.in_process}>
+        </div>
+
+          <div className={styles.header_up}>
             <div className={styles.default_text}>В работе:</div>
-            {inProcess.map((e, i) => (
+            <div className={styles.in_process}>
+            {inProcess.filter((_, i) => i < 20).map((e, i) => (
               <div key={i}>{e}</div>
             ))}
+            </div>
           </div>
-        </div>
+
       </div>
-      <div className={styles.in_process}>
+      <div className={styles.columns}>
         <div className={styles.default_text}>Выполнено за все время:</div>
         <div className={styles.amount}>{allTimes}</div>
       </div>
-      <div className={styles.in_process}>
+      <div className={styles.columns}>
         <div className={styles.default_text}>Выполнено за сегодня:</div>
         <div className={styles.amount}>{today}</div>
       </div>

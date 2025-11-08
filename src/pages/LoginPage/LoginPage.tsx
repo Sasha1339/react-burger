@@ -34,7 +34,7 @@ export const LoginPage: FC<Props> = ({...props}) => {
   }
 
   return (
-    user || refreshToken ? <Navigate to={'/'} replace /> : <main className={styles.login}>
+    user ? <Navigate to={'/'} replace /> : <main className={styles.login}>
 
       <form className={styles.login_form} onSubmit={onSubmit}>
         <h3>Вход</h3>

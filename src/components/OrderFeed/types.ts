@@ -1,13 +1,17 @@
 import {ConstructorIngredient} from "../BurgerIngredients/types";
 
 export interface OrderFeedModel {
-  id: number;
-  name: string;
-  order: {
-    number: number;
-    ingredients: ConstructorIngredient[];
-    price: number;
-    date: Date;
-  }
-  status?: 'ready' | 'in_process'
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface OrdersFeedModel {
+  orders: OrderFeedModel[]
+  total: number;
+  totalToday: number;
+  success: boolean
 }
