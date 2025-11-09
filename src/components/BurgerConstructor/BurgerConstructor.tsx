@@ -62,7 +62,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
 
   const onClick = useCallback(() => {
     if (!user) {
-      navigate('/login', { replace: true});
+      navigate({pathname: '/login', search: '?redirect=/'}, { replace: true});
       return;
     }
 

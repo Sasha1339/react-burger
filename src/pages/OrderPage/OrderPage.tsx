@@ -3,20 +3,33 @@ import styles from "./OrderPage.module.css";
 import {IngredientFeedCircle} from "../../components/IngredientFeedCircle/IngredientFeedCircle";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {orderSelectors} from "../../services/order";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {ingredientsSelectors} from "../../services/ingredients";
-import {useAppSelector} from "../../hooks/useAppDispatch";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
+import {socketActions} from "../../services/actions/socket";
+import {authSelectors} from "../../services/auth";
 
 type Props = {}
 
 export const OrderPage: FC<Props> = ({...props}) => {
 
-  const { id } = useParams();
+  const { number } = useParams();
 
-  const order = useAppSelector(orderSelectors.allOrders)?.orders.find(e => e._id === id);
+  const dispatch = useAppDispatch();
+
+  const location = useLocation();
+
+  const accessToken = useAppSelector(authSelectors.accessToken);
+
+  const order = useAppSelector(location.pathname.includes('profile') ? orderSelectors.allUserOrders : orderSelectors.allOrders)?.orders.find(e => e.number.toString() === number);
 
   const ingredients = useAppSelector(ingredientsSelectors.ingredients);
-  const isRequested = useAppSelector(ingredientsSelectors.isRequested);
+
+  useEffect(() => {
+    if (!order) {
+      dispatch(socketActions.startConnection());
+    }
+  }, [accessToken]);
 
   const ingredientsSorted = useMemo(() => {
 

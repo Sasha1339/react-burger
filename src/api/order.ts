@@ -7,7 +7,6 @@ class OrderApi {
   readonly API_URL: string;
 
   constructor() {
-    console.log(HOST_URL);
     this.API_URL = `${HOST_URL}/api/orders`;
     this.createOrder = this.createOrder.bind(this);
   }

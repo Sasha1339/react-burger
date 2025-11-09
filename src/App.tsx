@@ -37,7 +37,7 @@ function App() {
       <Routes location={background || location}>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/" element={<ProtectedRouteElement/>}>
-          <Route path="/profile/orders/:id" element={
+          <Route path="/profile/orders/:number" element={
             <div className={styles.page}>
               <OrderPage />
             </div>
@@ -49,7 +49,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/feed" element={<FeedPage/>}/>
-        <Route path="/feed/:id" element={
+        <Route path="/feed/:number" element={
           <div className={styles.page}>
             <OrderPage />
           </div>
@@ -71,14 +71,14 @@ function App() {
               <IngredientsDetails/>
             </Modal>}
           />
-          <Route path="/feed/:id" element={
+          <Route path="/feed/:number" element={
             <Modal header="" onClose={() => navigate(-1)}>
               <OrderPage />
             </Modal>}
           />
           <Route path="/" element={<ProtectedRouteElement />}>
 
-            <Route path="/profile/orders/:id" element={
+            <Route path="/profile/orders/:number" element={
               <Modal header="" onClose={() => navigate(-1)}>
                 <OrderPage />
               </Modal>}

@@ -1,7 +1,7 @@
 import {FC, FormEvent, SyntheticEvent, useCallback, useEffect, useState} from "react";
 import styles from "./LoginPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
 import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {authSelectors, signIn} from "../../services/auth";
@@ -13,7 +13,8 @@ export const LoginPage: FC<Props> = ({...props}) => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector(authSelectors.user);
-  const refreshToken = window.localStorage.getItem('refreshToken');
+
+  const location = useLocation();
 
   const [email, setEmail] = useState<string>('');
   const [showIcon, setShowIcon] = useState<boolean>(false);
@@ -33,7 +34,7 @@ export const LoginPage: FC<Props> = ({...props}) => {
   }
 
   return (
-    user ? <Navigate to={'/'} replace /> : <main className={styles.login}>
+    user ? <Navigate to={(location.search.includes('redirect') ? location.search : '?redirect=/').replace('?redirect=', '')} replace /> : <main className={styles.login}>
 
       <form className={styles.login_form} onSubmit={onSubmit}>
         <h3>Вход</h3>

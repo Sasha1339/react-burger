@@ -39,8 +39,8 @@ export const ProfileOrders: FC<Props> = ({...props}) => {
   return (
     <aside ref={ref} className={styles.feed}>
       {allOrders.orders.slice().reverse().map((e, i) => (
-        <OrderFeed key={i} id={e._id} onClick={() => {
-          navigator(`${e._id}`, {state: {background: location}})
+        <OrderFeed key={e._id} id={e._id} selector={'user'} onClick={() => {
+          navigator(`${e.number}`, {state: {background: location}})
         }}/>
       ))}
     </aside>

@@ -41,7 +41,7 @@ export const FeedPage: FC<Props> = ({...props}) => {
         <section className={styles.section}>
           <div className={styles.feed}>
             {orders?.orders.map((e, i) => (
-              <OrderFeed key={i} id={e._id} onClick={() => {navigator(`${e._id}`, {state: {background: location}})}} />
+              <OrderFeed key={i} id={e._id}  selector={'all'} onClick={() => {navigator(`${e.number}`, {state: {background: location}})}} />
             ))}
           </div>
         </section>

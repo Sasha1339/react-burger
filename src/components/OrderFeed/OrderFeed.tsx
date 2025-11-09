@@ -4,19 +4,20 @@ import {CheckMarkIcon, CurrencyIcon, FormattedDate} from "@ya.praktikum/react-de
 import {OrderFeedModel} from "./types";
 import {IngredientFeedCircle} from "../IngredientFeedCircle/IngredientFeedCircle";
 import {orderSelectors} from "../../services/order";
-import {ingredientsSelectors} from "../../services/ingredients";
+import {ingredientsActions, ingredientsSelectors} from "../../services/ingredients";
 import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {
   id: string;
+  selector: 'all' | 'user';
   onClick: () => void
 }
 
-export const OrderFeed: FC<Props> = ({id, onClick, ...props }) => {
+export const OrderFeed: FC<Props> = ({id, onClick, selector, ...props }) => {
 
   const ingredients = useAppSelector(ingredientsSelectors.ingredients);
 
-  const order = useAppSelector(orderSelectors.allOrders)?.orders.find((e => e._id === id));
+  const order = useAppSelector(selector === 'user' ? orderSelectors.allUserOrders : orderSelectors.allOrders)?.orders.find((e => e._id === id));
 
   if (!order || (ingredients?.length < 1)) {
     return null;
