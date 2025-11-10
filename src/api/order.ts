@@ -7,18 +7,18 @@ class OrderApi {
   readonly API_URL: string;
 
   constructor() {
-    console.log(HOST_URL);
     this.API_URL = `${HOST_URL}/api/orders`;
     this.createOrder = this.createOrder.bind(this);
   }
 
-  async createOrder(ingredients: string[]): Promise<OrderModel> {
+  async createOrder(data:{ingredients: string[], accessToken: string}): Promise<OrderModel> {
     const response = await fetch(this.API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `${data.accessToken}`
       },
-      body: JSON.stringify({ingredients})
+      body: JSON.stringify({ingredients: data.ingredients})
     });
 
     if (!response.ok) {

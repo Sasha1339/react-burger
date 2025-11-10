@@ -1,14 +1,14 @@
 import styles from './OrderDetails.module.css';
 import {FC} from "react";
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {orderSelectors} from "../../services/order";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
 export const OrderDetails: FC<Props> = ({...props }) => {
 
-  const orderModel = useSelector(orderSelectors.order);
+  const orderModel = useAppSelector(orderSelectors.order);
 
   return (
     <div className={styles.modal_content}>

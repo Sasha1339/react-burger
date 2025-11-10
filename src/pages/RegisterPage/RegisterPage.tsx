@@ -2,15 +2,14 @@ import {FC, FormEvent, SyntheticEvent, useCallback, useState} from "react";
 import styles from "./RegisterPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {authSelectors, signUp} from "../../services/auth";
-import {useSelector} from "react-redux";
 
 type Props = {}
 
 export const RegisterPage: FC<Props> = ({...props}) => {
 
-  const user = useSelector(authSelectors.user);
+  const user = useAppSelector(authSelectors.user);
   const refreshToken = window.localStorage.getItem('refreshToken');
 
   const dispatch = useAppDispatch();

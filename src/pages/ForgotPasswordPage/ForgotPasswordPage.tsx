@@ -3,10 +3,9 @@ import styles from "./ForgotPasswordPage.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import {passwordApi} from "../../api/password";
-import {useAuth} from "../../hooks/useAuth";
 import {v4 as uuidv4} from "uuid";
-import {useSelector} from "react-redux";
 import {authSelectors} from "../../services/auth";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
@@ -14,7 +13,7 @@ export const ForgotPasswordPage: FC<Props> = ({...props}) => {
 
   const navigate = useNavigate();
 
-  const user = useSelector(authSelectors.user);
+  const user = useAppSelector(authSelectors.user);
   const refreshToken = window.localStorage.getItem('refreshToken');
 
   const [email, setEmail] = useState<string>('');

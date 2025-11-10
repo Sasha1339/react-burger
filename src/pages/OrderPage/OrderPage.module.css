@@ -1,0 +1,95 @@
+.order {
+    font-family: 'Jet Brains Mono', sans-serif;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 40px;
+    box-sizing: border-box;
+
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    max-height: 30vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    gap: 10px;
+}
+
+.ingredient {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 64px auto auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.text_block {
+    text-align: start;
+}
+
+.text_block_ingredient {
+    text-align: start;
+    font-size: 20px;
+}
+
+.date {
+    color: var(--color-text-active);
+    opacity: 0.5;
+    font-size: 20px;
+}
+
+.status_block {
+    text-align: start;
+    font-size: 20px;
+    color: var(--color-text-ready);
+}
+
+.block_order {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.block_order_center {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.block_order_row {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.number {
+    font-family: 'Iceland', sans-serif;
+    font-size: 28px;
+    text-align: center;
+}

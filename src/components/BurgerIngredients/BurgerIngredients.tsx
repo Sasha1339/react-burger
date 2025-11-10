@@ -3,17 +3,15 @@ import {IngredientsType, navigationTypes} from "./types";
 import {IngredientList} from "../IngredientsList/IngredientList";
 import styles from "./BurgerIngredients.module.css";
 import {IngredientNavigation} from "../IngredientNavigation/IngredientNavigation";
-import {getIngredients, ingredientsSelectors} from "../../services/ingredients";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {ingredientsSelectors} from "../../services/ingredients";
 import { gsap } from 'gsap';
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../../hooks/useAppDispatch";
 
 type Props = {}
 
 export const BurgerIngredients: FC<Props> = ({...props}) => {
 
-  const dispatch = useAppDispatch();
-  const ingredients = useSelector(ingredientsSelectors.ingredients);
+  const ingredients = useAppSelector(ingredientsSelectors.ingredients);
   const bunsRef = useRef<HTMLHeadingElement>(null);
   const sauceRef = useRef<HTMLHeadingElement>(null);
   const mainRef = useRef<HTMLHeadingElement>(null);
@@ -22,9 +20,6 @@ export const BurgerIngredients: FC<Props> = ({...props}) => {
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [type, setType] = useState(IngredientsType.BUN);
 
-  useEffect(() => {
-    dispatch(getIngredients())
-  }, []);
 
   const onScrollIngredients = (event: SyntheticEvent) => {
     const bunsContentTopParent = bunsContentRef.current!.getBoundingClientRect().bottom - event.currentTarget.getBoundingClientRect().top;

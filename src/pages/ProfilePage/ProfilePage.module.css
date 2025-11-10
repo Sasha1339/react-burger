@@ -20,13 +20,13 @@
 .profile_section_center {
     display: flex;
     height: 100%;
-    width: 25%;
+    width: 35%;
 }
 
 .profile_section_right {
     display: flex;
     height: 100%;
-    width: 25%;
+    width: 15%;
 }
 
 .profile_hint {

@@ -25,7 +25,7 @@ export const ProfilePage: FC<Props> = ({...props}) => {
   return (
     <main className={styles.profile}>
       <section className={styles.profile_section_left}>
-        <h3 className={`${styles.profile_route} ${!location.pathname.includes('orders') && styles.profile_route_active}`} onClick={() => navigate('/profile')}>Профиль</h3>
+        <h3 className={`${styles.profile_route} ${!location.pathname.includes('orders') && styles.profile_route_active}`} onClick={() => navigate('')}>Профиль</h3>
         <h3 className={`${styles.profile_route} ${location.pathname.includes('orders') && styles.profile_route_active}`} onClick={() => navigate('orders')}>История заказов</h3>
         <h3 className={styles.profile_route}  onClick={onLogout}>Выход</h3>
         <p className={styles.profile_hint}>В этом разделе вы можете изменить свои персональные настройки</p>
