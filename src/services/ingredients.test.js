@@ -123,8 +123,6 @@ describe('ingredients reducer', () => {
 
     const result = ingredientsReducer(initState, ingredientsActions.moveIngredientConstruct({...mockIngredient2, order: mockIngredient1.order}));
 
-    console.log(result);
-
     expect(result.constructorIngredients.other[0].ingredientId).toEqual('second');
   })
 
