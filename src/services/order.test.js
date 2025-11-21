@@ -1,7 +1,23 @@
 import {orderReducer} from "./order";
 import {initialState} from "./order";
 import {orderActions} from "./order";
-import {OrderFeedModel} from "../components/OrderFeed/types";
+
+
+const mockOrders = {
+  orders: [
+    {
+      ingredients: ['1', '2'],
+      _id: '1',
+      status: 'done',
+      number: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+  ],
+  total: 10,
+  totalToday: 10,
+  success: true,
+}
 
 describe('order reducer', () => {
 
@@ -19,22 +35,6 @@ describe('order reducer', () => {
 
   it ('should handle getAllOrders', () => {
 
-    const mockOrders = {
-      orders: [
-        {
-          ingredients: ['1', '2'],
-          _id: '1',
-          status: 'done',
-          number: 10,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        }
-      ],
-      total: 10,
-      totalToday: 10,
-      success: true,
-    }
-
     const result = orderReducer(initialState, orderActions.getAllOrders(mockOrders));
 
     expect(result.allOrders).toEqual(mockOrders);
@@ -42,21 +42,6 @@ describe('order reducer', () => {
 
   it ('should handle getAllUserOrders', () => {
 
-    const mockOrders = {
-      orders: [
-        {
-          ingredients: ['1', '2'],
-          _id: '1',
-          status: 'done',
-          number: 10,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        }
-      ],
-      total: 10,
-      totalToday: 10,
-      success: true,
-    }
 
     const result = orderReducer(initialState, orderActions.getAllUserOrders(mockOrders));
 

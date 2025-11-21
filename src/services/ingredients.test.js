@@ -3,6 +3,20 @@ import {initialState} from "./ingredients";
 import {ingredientsActions} from "./ingredients";
 import {IngredientsType} from "../components/BurgerIngredients/types";
 
+
+const mockIngredientShared = {
+  _id: '1',
+  name: 'BUN',
+  price: 10,
+  image: '',
+  proteins: 10,
+  fat: 10,
+  carbohydrates: 10,
+  calories: 10,
+  type: IngredientsType.BUN,
+  amount: 10,
+}
+
 jest.mock('uuid', () => ({
   v4: jest.fn(() => 'mock-uuid-1234')
 }));
@@ -14,18 +28,7 @@ describe('ingredients reducer', () => {
   })
 
   it ('should handle openIngredientsDetails', () => {
-    const mockIngredient = {
-      _id: '1',
-      name: 'BUN',
-      price: 10,
-      image: '',
-      proteins: 10,
-      fat: 10,
-      carbohydrates: 10,
-      calories: 10,
-      type: IngredientsType.BUN,
-      amount: 10,
-    };
+    const mockIngredient = mockIngredientShared;
 
     const result = ingredientsReducer(initialState, ingredientsActions.openIngredientsDetails(mockIngredient));
 
@@ -42,16 +45,7 @@ describe('ingredients reducer', () => {
   it ('should handle addUpBunConstruct', () => {
 
     const mockIngredient = {
-      _id: '1',
-      name: 'BUN',
-      price: 10,
-      image: '',
-      proteins: 10,
-      fat: 10,
-      carbohydrates: 10,
-      calories: 10,
-      type: IngredientsType.BUN,
-      amount: 10,
+      ...mockIngredientShared,
       order: 10,
       ingredientId: 'id',
       moveDrag: true,
@@ -65,16 +59,7 @@ describe('ingredients reducer', () => {
   it ('should handle addDownBunConstruct', () => {
 
     const mockIngredient = {
-      _id: '1',
-      name: 'BUN',
-      price: 10,
-      image: '',
-      proteins: 10,
-      fat: 10,
-      carbohydrates: 10,
-      calories: 10,
-      type: IngredientsType.BUN,
-      amount: 10,
+      ...mockIngredientShared,
       order: 10,
       ingredientId: 'id',
       moveDrag: true,
@@ -88,16 +73,7 @@ describe('ingredients reducer', () => {
   it ('should handle addIngredientInConstruct', () => {
 
     const mockIngredient = {
-      _id: '1',
-      name: 'BUN',
-      price: 10,
-      image: '',
-      proteins: 10,
-      fat: 10,
-      carbohydrates: 10,
-      calories: 10,
-      type: IngredientsType.BUN,
-      amount: 10,
+      ...mockIngredientShared,
       order: 10,
       ingredientId: 'id',
       moveDrag: true,

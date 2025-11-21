@@ -1,14 +1,21 @@
+import {TEST_URL} from "../../../src/shared/const";
+import {
+  BURGER_CONSTRUCTOR_CONTENT_SELECTOR,
+  BURGER_CONSTRUCTOR_PRICE_SELECTOR, BUTTON_SELECTOR,
+  INGREDIENT_UI_SELECTOR,
+  UP_BUN_SELECTOR
+} from "./const";
+
 describe('service is available', function() {
   before(function() {
-    cy.visit('http://localhost:3000');
+    cy.visit(TEST_URL);
   });
 
   it('should bun drag and drop', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
-    cy.get('[class^=upBun]').first().as('upBun');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
+    cy.get(UP_BUN_SELECTOR).first().as('upBun');
     cy.get('[class^=downBun]').first().as('downBun');
 
-    const dataTransfer = new DataTransfer();
 
     cy.get('@upBun')
       .children()
@@ -61,9 +68,9 @@ describe('service is available', function() {
   });
 
   it('should sauce drag and drop', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').eq(3).as('productSauce');
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
-    cy.get('[class^=BurgerConstructor_content__]').first().as('inner');
+    cy.get(INGREDIENT_UI_SELECTOR).eq(3).as('productSauce');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
+    cy.get(BURGER_CONSTRUCTOR_CONTENT_SELECTOR).first().as('inner');
 
     cy.get('@inner')
       .children()
@@ -98,11 +105,11 @@ describe('service is available', function() {
   });
 
   it('should burger drag and drop', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').eq(3).as('productSauce');
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
+    cy.get(INGREDIENT_UI_SELECTOR).eq(3).as('productSauce');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
 
-    cy.get('[class^=upBun]').first().as('upBun');
-    cy.get('[class^=BurgerConstructor_content__]').first().as('inner');
+    cy.get(UP_BUN_SELECTOR).first().as('upBun');
+    cy.get(BURGER_CONSTRUCTOR_CONTENT_SELECTOR).first().as('inner');
 
     cy.get('@inner')
       .children()
@@ -166,11 +173,11 @@ describe('service is available', function() {
   });
 
   it('should price right', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').eq(3).as('productSauce');
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
-    cy.get('[class^=BurgerConstructor_price__]').first().as('price');
-    cy.get('[class^=upBun]').first().as('upBun');
-    cy.get('[class^=BurgerConstructor_content__]').first().as('inner');
+    cy.get(INGREDIENT_UI_SELECTOR).eq(3).as('productSauce');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
+    cy.get(BURGER_CONSTRUCTOR_PRICE_SELECTOR).first().as('price');
+    cy.get(UP_BUN_SELECTOR).first().as('upBun');
+    cy.get(BURGER_CONSTRUCTOR_CONTENT_SELECTOR).first().as('inner');
 
 
     cy.get('@productSauce')
@@ -202,12 +209,12 @@ describe('service is available', function() {
   });
 
   it('should route login', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').eq(3).as('productSauce');
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
-    cy.get('[class^=BurgerConstructor_price__]').first().as('price');
-    cy.get('[class^=button ]').first().as('button');
-    cy.get('[class^=upBun]').first().as('upBun');
-    cy.get('[class^=BurgerConstructor_content__]').first().as('inner');
+    cy.get(INGREDIENT_UI_SELECTOR).eq(3).as('productSauce');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
+    cy.get(BURGER_CONSTRUCTOR_PRICE_SELECTOR).first().as('price');
+    cy.get(BUTTON_SELECTOR).first().as('button');
+    cy.get(UP_BUN_SELECTOR).first().as('upBun');
+    cy.get(BURGER_CONSTRUCTOR_CONTENT_SELECTOR).first().as('inner');
 
 
     cy.get('@productSauce')
@@ -244,7 +251,7 @@ describe('service is available', function() {
   });
 
   it('should open modal window with ingredient', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
 
     cy.get('@productBun')
       .click()
@@ -253,7 +260,7 @@ describe('service is available', function() {
   });
 
   it('should close modal window with ingredient', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
 
 
     cy.get('@productBun')
@@ -271,12 +278,12 @@ describe('service is available', function() {
   });
 
   it('should login', function() {
-    cy.get('[class^=IngredientUI_ingredient__]').eq(3).as('productSauce');
-    cy.get('[class^=IngredientUI_ingredient__]').first().as('productBun');
-    cy.get('[class^=BurgerConstructor_price__]').first().as('price');
-    cy.get('[class^=button ]').first().as('button');
-    cy.get('[class^=upBun]').first().as('upBun');
-    cy.get('[class^=BurgerConstructor_content__]').first().as('inner');
+    cy.get(INGREDIENT_UI_SELECTOR).eq(3).as('productSauce');
+    cy.get(INGREDIENT_UI_SELECTOR).first().as('productBun');
+    cy.get(BURGER_CONSTRUCTOR_PRICE_SELECTOR).first().as('price');
+    cy.get(BUTTON_SELECTOR).first().as('button');
+    cy.get(UP_BUN_SELECTOR).first().as('upBun');
+    cy.get(BURGER_CONSTRUCTOR_CONTENT_SELECTOR).first().as('inner');
 
 
     cy.get('@productSauce')
@@ -312,11 +319,11 @@ describe('service is available', function() {
     cy.get('input').eq(0).type('samara@q1.q1');
     cy.get('input').eq(1).type('samara');
 
-    cy.get('[class^=button ]').click();
+    cy.get(BUTTON_SELECTOR).click();
 
     cy.wait(3000);
 
-    cy.get('[class^=button ]').click();
+    cy.get(BUTTON_SELECTOR).click();
 
     cy.wait(20000);
     cy.contains('идентификатор заказа')
