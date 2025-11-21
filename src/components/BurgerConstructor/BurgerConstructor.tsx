@@ -95,7 +95,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
   return (
     <div className={styles.ingredients}>
       <div className={styles.components}>
-        <div ref={upBunDrop}>
+        <div className="upBun" ref={upBunDrop}>
         {upBun ? <IngredientCardUI ingredient={upBun} isLocked={true} type={'top'}/> :
           <div className={`${styles.ingredient} ${isUpBunHover && styles.ingredient_hover} ${isNotUpBunHover && styles.ingredient_hover_invalid}`}>
              Выберите верхнюю булочку
@@ -111,7 +111,7 @@ export const BurgerConstructor: FC<PropsWithChildren<Props>> = ({...props}) => {
             </div>
           }
         </div>
-        <div ref={downBunDrop} >
+        <div className="downBun" ref={downBunDrop} >
         {downBun ? <IngredientCardUI ingredient={downBun} isLocked={true} type={'bottom'}/> :
           <div className={`${styles.ingredient} ${isDownBunHover && styles.ingredient_hover} ${isNotDownBunHover && styles.ingredient_hover_invalid}`}>
             Выберите нижнюю булочку
