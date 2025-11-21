@@ -84,4 +84,48 @@ describe('ingredients reducer', () => {
     expect(result.constructorIngredients.other[0]).toEqual(mockIngredient);
   })
 
+  it ('should handle deleteIngredientConstruct', () => {
+
+    const mockIngredient = {
+      ...mockIngredientShared,
+      order: 10,
+      ingredientId: 'id',
+      moveDrag: true,
+    };
+
+    const initState = {...initialState, constructorIngredients: {other: [mockIngredient]}}
+
+    const result = ingredientsReducer(initState, ingredientsActions.deleteIngredientConstruct(mockIngredient));
+
+    expect(result.constructorIngredients.other).toEqual([]);
+  })
+
+  it ('should handle moveIngredientConstruct', () => {
+
+    const mockIngredient1 = {
+      ...mockIngredientShared,
+      _id: "1",
+      order: 1,
+      ingredientId: 'first',
+      moveDrag: true,
+    };
+
+    const mockIngredient2 = {
+      ...mockIngredientShared,
+      _id: "2",
+      order: 2,
+      ingredientId: 'second',
+      moveDrag: true,
+    };
+
+
+    const initState = {...initialState, constructorIngredients: {other: [mockIngredient1, mockIngredient2]}}
+
+    const result = ingredientsReducer(initState, ingredientsActions.moveIngredientConstruct({...mockIngredient2, order: mockIngredient1.order}));
+
+    console.log(result);
+
+    expect(result.constructorIngredients.other[0].ingredientId).toEqual('second');
+  })
+
 })
