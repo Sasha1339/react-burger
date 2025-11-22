@@ -19,7 +19,7 @@ type IngredientsState = {
   currentIngredientFailed: boolean;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   allIngredients: [],
   constructorIngredients: {
     other: []
