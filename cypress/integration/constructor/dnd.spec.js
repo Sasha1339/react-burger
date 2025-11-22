@@ -7,8 +7,10 @@ import {
 } from "./const";
 
 describe('service is available', function() {
-  before(function() {
-    cy.visit(TEST_URL);
+  beforeEach(function() {
+    cy.intercept("GET", '**/api/ingredients').as('getIngredients');
+    cy.visit('/');
+    cy.wait('@getIngredients');
   });
 
   it('should bun drag and drop', function() {
