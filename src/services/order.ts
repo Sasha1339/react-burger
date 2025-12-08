@@ -12,7 +12,7 @@ type OrderState = {
   orderFailed: boolean;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   order: null,
   allOrders: null,
   allUserOrders: null,
